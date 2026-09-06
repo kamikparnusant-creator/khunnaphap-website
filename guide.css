@@ -5,3 +5,17 @@
 .brand{font-size:29px}.brand-mark{width:46px;height:46px;border-width:2px}.site-header .brand{gap:12px}
 @media(max-width:760px){body{padding-bottom:76px}.mobile-dock{position:fixed;display:grid;grid-template-columns:repeat(4,1fr);align-items:center;bottom:0;left:0;right:0;height:68px;background:rgba(33,23,53,.97);z-index:30;padding:5px max(12px,env(safe-area-inset-left)) calc(5px + env(safe-area-inset-bottom));box-shadow:0 -5px 20px #21173530}.mobile-dock a{display:flex;min-width:0;min-height:52px;align-items:center;justify-content:center;flex-direction:column;gap:2px;color:#e8e1f0;font-size:10px;font-weight:700}.mobile-dock a:active,.mobile-dock a:focus{color:var(--lime)}.mobile-dock span{font:18px/1 Arial,sans-serif}.site-header{height:82px;padding:0 20px}.brand{font-size:26px}.brand-mark{width:44px;height:44px}.hero-copy{padding:48px 7vw 45px}.hero h1{font-size:clamp(45px,13vw,58px);letter-spacing:-2.5px}.hero-text{font-size:16px;line-height:1.75}.button{min-height:52px;padding:15px 20px;width:100%}.hero-actions{margin:28px 0}.hero-visual,.hero-photo{min-height:360px;height:360px}.inspection-card{left:0;bottom:42px;padding:15px 17px}.trust-bar{padding:18px 7vw}.intro-section,.faq,.eligibility,.inspection-guide{padding:65px 7vw}.intro-grid h2,.check-content h2,.process-head h2,.eligibility h2,.guide-heading h2,.faq h2{letter-spacing:-2px}.service-grid article{min-height:0;padding:25px 22px 28px}.service-icon{margin-top:15px}.service-grid h3{margin:15px 0 7px}.service-grid p{font-size:15px;line-height:1.7;max-width:none}.check-content{padding:62px 7vw}.check-list li{padding:18px 0;gap:4px;font-size:16px}.check-list li>span{min-width:32px}.process-section{padding:65px 7vw}.steps article,.steps article:not(:first-child){padding:25px 0}.steps h3{font-size:20px}.steps p{font-size:15px;max-width:none}.vehicle-ages{grid-template-columns:1fr}.vehicle-ages article,.vehicle-ages article:nth-child(odd){min-height:0;border-left:1px solid #cfc4da;padding:18px 20px}.vehicle-ages article{display:grid;grid-template-columns:1fr auto;align-items:center}.vehicle-ages h3{margin:5px 0 0}.vehicle-ages strong{grid-column:2;grid-row:1/3;font-size:48px}.guide-alert{font-size:15px}.guide-heading h2{margin-bottom:30px}.guide-grid article{padding:22px 20px}.guide-grid h3{font-size:18px}.guide-grid p,.guide-grid li{font-size:15px}.faq details{padding:20px 0}.faq summary{font-size:16px;line-height:1.5;gap:15px}.faq details p{font-size:15px}.faq summary b{flex:none}footer{padding-bottom:30px}}
 @media(max-width:760px){.inspection-guide{padding:75px 7vw}.guide-alert{align-items:flex-start;padding:19px;margin-bottom:60px}.guide-grid{grid-template-columns:1fr}.guide-grid article,.guide-grid article:first-child{min-height:0;border-left:1px solid var(--line)}.guide-grid h3{margin:18px 0 8px}}
+
+/* Larger header logo, with room for the mobile navigation. */
+.site-header{height:108px}
+.site-header .brand-mark{width:80px;height:80px;flex-shrink:0;object-fit:contain;border-radius:8px}
+.site-header .brand>span{white-space:nowrap}
+html{scroll-padding-top:120px}
+@media(max-width:760px){
+  .site-header{height:96px;padding:0 16px}
+  .site-header .brand{gap:10px}
+  .site-header .brand-mark{width:72px;height:72px}
+  .menu-toggle{min-width:44px;min-height:44px;flex-shrink:0}
+  .main-nav.open{top:96px}
+  html{scroll-padding-top:108px}
+}
