@@ -30,6 +30,12 @@ footer{padding:32px 20px;display:flex;flex-direction:column;align-items:flex-sta
 }
 @media(max-width:360px){.site-header{padding:10px 8px}.site-header .brand{gap:6px}main{padding:0 16px}.check-content{padding:24px 16px}.service-grid article{padding:20px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+.services-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0}
+.services-list p.registration-note{margin-top:14px;color:var(--purple);font-weight:600}
+.services-list li{display:flex;gap:18px;align-items:flex-start;padding:28px;background:white;border:1px solid var(--line);border-radius:22px}
+.service-check{display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:50%;background:var(--soft);color:var(--purple);font-size:22px;font-weight:700}
+.services-list h3{margin:0 0 8px;font-size:21px}.services-list p{margin:0;color:var(--muted);font-size:16px}.services-list strong{color:var(--purple);font-size:22px}
+@media(max-width:760px){.services-list{grid-template-columns:1fr;gap:12px}.services-list li{padding:22px 18px;gap:14px}.services-list h3{font-size:19px}}
 
 .branches{padding:72px 0 88px;border-top:1px solid var(--line)}
 .branches-heading{display:flex;justify-content:space-between;align-items:center;gap:32px;margin-bottom:32px}
