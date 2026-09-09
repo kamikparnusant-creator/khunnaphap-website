@@ -1,3 +1,20 @@
+// Start at the top on entry; keep section links working after the page opens.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (location.hash) {
+  try {
+    history.replaceState(history.state, '', location.pathname + location.search);
+  } catch {
+    location.hash = 'top';
+  }
+}
+function startAtTop() {
+  if (!location.hash || location.hash === '#top') {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }
+}
+startAtTop();
+window.addEventListener('pageshow', startAtTop, { once: true });
+
 const menu = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
 menu?.addEventListener('click', () => {
