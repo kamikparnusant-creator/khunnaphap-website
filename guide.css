@@ -1,4 +1,5 @@
 .inspection-guide{border-top:1px solid var(--line)}
+.eligibility{row-gap:24px}.eligibility>.guide-alert{grid-column:1 / -1;margin:0}.eligibility>.guide-alert>p{margin:0;color:#655221}
 .guide-alert{background:#fff7d9;border:1px solid #ecdfa3;border-radius:20px;display:flex;align-items:center;gap:16px;padding:24px;margin-bottom:40px;color:#655221}
 .guide-alert>span{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:50%;background:var(--yellow);font-size:23px;font-weight:700}
 .guide-alert p{margin:0;font-size:16px}.guide-alert strong{display:block;color:#514019;font-size:18px}
