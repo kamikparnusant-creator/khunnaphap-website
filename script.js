@@ -94,18 +94,12 @@ branchCards.forEach((card, index) => {
   heading.replaceChildren(toggle);
   const header = document.createElement('div');
   header.className = 'branch-row';
-  const quickPhone = document.createElement('a');
-  quickPhone.className = 'branch-quick-phone';
-  quickPhone.href = card.querySelector('.branch-phone').href;
-  quickPhone.textContent = '📞';
-  quickPhone.setAttribute('aria-label', 'โทร ' + title);
-  quickPhone.title = card.querySelector('.branch-phone').getAttribute('aria-label');
   const panel = document.createElement('div');
   panel.className = 'branch-detail';
   panel.id = 'branch-detail-' + index;
   panel.hidden = true;
   [...card.children].filter(child => child !== heading).forEach(child => panel.append(child));
-  header.append(heading, quickPhone);
+  header.append(heading);
   card.replaceChildren(header, panel);
   card.classList.add('branch-accordion');
   toggle.addEventListener('click', () => {
@@ -113,32 +107,12 @@ branchCards.forEach((card, index) => {
   });
 });
 function selectContactBranch(index) {
-  const card = branchCards[index];
-  const panel = document.querySelector('#selected-contact');
-  panel.hidden = !card;
-  document.body.classList.toggle('has-selected-branch', Boolean(card));
   branchCards.forEach((item, i) => {
     item.classList.toggle('selected-branch', i === index);
     item.querySelector('.branch-toggle').setAttribute('aria-expanded', String(i === index));
     item.querySelector('.branch-detail').hidden = i !== index;
   });
-  if (!card) return;
-  const name = card.querySelector('h3').textContent;
-  document.querySelector('#selected-name').textContent = name;
-  const phone = document.querySelector('#selected-phone');
-  phone.href = card.querySelector('.branch-phone').href;
-  phone.setAttribute('aria-label', 'โทร ' + name);
-  const map = document.querySelector('#selected-map');
-  map.href = 'https://www.google.com/maps/dir/?api=1&destination=' + branchCoordinates[index].join(',') + '&travelmode=driving';
-  map.setAttribute('aria-label', 'นำทางไป ' + name + ' ในแท็บใหม่');
 }
-document.querySelector('#clear-branch').addEventListener('click', () => {
-  selectContactBranch(-1);
-  branchChoice.value = '';
-  branchChoice.dispatchEvent(new Event('change'));
-  branchChoice.scrollIntoView({ block: 'center', behavior: 'auto' });
-  branchChoice.focus({ preventScroll: true });
-});
 function resetBranches() {
   selectContactBranch(-1);
   branchCards.forEach(card => {
