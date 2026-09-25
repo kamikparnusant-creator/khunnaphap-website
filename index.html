@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=map-zoom-20260925" />
+    <link rel="stylesheet" href="style.css?v=single-expand-20260925" />
     <link rel="stylesheet" href="guide.css?v=accordion-20260909" />
   </head>
   <body>
@@ -58,7 +58,7 @@
           <div class="branch-hours"><span class="hours-icon" aria-hidden="true">◷</span><div><strong>เวลาเปิดบริการทุกสาขา</strong><p>จันทร์–เสาร์ <b>08.00–17.00 น.</b></p></div></div>
         </div>
         <div class="branch-finder">
-          <button class="button button-dark" id="find-nearest" type="button">⌖ ค้นหาสาขาใกล้ฉัน</button>
+          <button class="button button-dark" id="find-nearest" type="button">🗺️ ค้นหาสาขาใกล้ฉัน กดได้เลย</button>
           <label for="branch-choice">หรือเลือกสาขาเอง</label>
           <select id="branch-choice"><option value="">ทุกสาขา</option></select>
           <p id="location-status" role="status">ขอใช้ตำแหน่งเมื่อคุณกดค้นหาเท่านั้น คำนวณในเครื่องโดยไม่บันทึกตำแหน่ง</p>
@@ -89,9 +89,9 @@
     </nav>
     <footer><a class="brand" href="#top"><img class="brand-mark" src="assets/tro-logo.jpg" alt="ตรอ.คุณภาพ" /><span>ตรอ.<span class="brand-dot">คุณภาพ</span></span></a><p>เบอร์โทรร้องเรียน<br /><a href="tel:0944724605" aria-label="โทรร้องเรียน 094-472-4605"><strong>📞 094-472-4605</strong></a></p><a class="footer-top" href="#top">กลับด้านบน ↑</a><small>© ตรอ.คุณภาพ · สถานตรวจสภาพรถเอกชน</small></footer>
     <dialog id="poster-dialog" aria-labelledby="poster-title">
-      <div class="poster-toolbar"><strong id="poster-title">ดูรูปขนาดใหญ่</strong><button type="button" id="poster-zoom">ขยายรูป +</button><button type="button" id="poster-close" aria-label="ปิดรูป">ปิด ×</button></div>
+      <div class="poster-toolbar"><strong id="poster-title">ดูรูปขนาดใหญ่</strong><button type="button" id="poster-close" aria-label="ปิดรูป">ปิด ×</button></div>
       <div class="poster-scroll"><img id="poster-full" alt="" /></div>
     </dialog>
-    <script src="script.js?v=map-zoom-20260925"></script>
+    <script src="script.js?v=single-expand-20260925"></script>
   </body>
 </html>

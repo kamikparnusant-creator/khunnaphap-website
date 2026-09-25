@@ -125,7 +125,6 @@ nearestButton.addEventListener('click', () => {
 // Native dialog traps focus, supports Escape, and keeps images on this page.
 const posterDialog = document.querySelector('#poster-dialog');
 const posterFull = document.querySelector('#poster-full');
-const posterZoom = document.querySelector('#poster-zoom');
 let posterOpener;
 let previousOverflow = '';
 document.querySelectorAll('.vehicle-age-poster').forEach(link => {
@@ -142,9 +141,6 @@ document.querySelectorAll('.vehicle-age-poster').forEach(link => {
     posterOpener = link;
     posterFull.src = link.href;
     posterFull.alt = link.querySelector('img').alt;
-    posterDialog.classList.remove('is-zoomed');
-    posterZoom.textContent = 'ขยายรูป +';
-    posterZoom.setAttribute('aria-pressed', 'false');
     previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     posterDialog.showModal();
@@ -159,9 +155,4 @@ posterDialog.addEventListener('click', event => {
 posterDialog.addEventListener('close', () => {
   document.body.style.overflow = previousOverflow;
   posterOpener?.focus({ preventScroll: true });
-});
-posterZoom.addEventListener('click', () => {
-  const zoomed = posterDialog.classList.toggle('is-zoomed');
-  posterZoom.textContent = zoomed ? 'พอดีหน้าจอ −' : 'ขยายรูป +';
-  posterZoom.setAttribute('aria-pressed', String(zoomed));
 });
