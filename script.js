@@ -51,7 +51,7 @@ function openingStatus(date = new Date()) {
     minute: '2-digit', hourCycle: 'h23'
   }).formatToParts(date).map(part => [part.type, part.value]));
   const minutes = Number(parts.hour) * 60 + Number(parts.minute);
-  const open = parts.weekday !== 'Sun' && minutes >= 475 && minutes < 1030;
+  const open = parts.weekday !== 'Sun' && minutes >= 477 && minutes < 1023;
   return open ? '🟢 ขณะนี้เปิดบริการ' : '🔴 ขณะนี้ปิดบริการ';
 }
 function updateOpeningStatus() {
