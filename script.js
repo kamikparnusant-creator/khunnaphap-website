@@ -44,6 +44,27 @@ function updateShortcut() {
 window.addEventListener('hashchange', updateShortcut);
 updateShortcut();
 
+// Opening hours follow Thailand time, regardless of the visitor's timezone.
+function openingStatus(date = new Date()) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Bangkok', weekday: 'short', hour: '2-digit',
+    minute: '2-digit', hourCycle: 'h23'
+  }).formatToParts(date).map(part => [part.type, part.value]));
+  const minutes = Number(parts.hour) * 60 + Number(parts.minute);
+  const open = parts.weekday !== 'Sun' && minutes >= 470 && minutes < 1035;
+  return open ? '🟢 ขณะนี้เปิดบริการ' : '🔴 ขณะนี้ปิดบริการ';
+}
+function updateOpeningStatus() {
+  const status = document.querySelector('#opening-status');
+  const message = openingStatus();
+  if (status.textContent !== message) status.textContent = message;
+}
+updateOpeningStatus();
+setInterval(updateOpeningStatus, 1000);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) updateOpeningStatus();
+});
+
 // Coordinates from the seven branch map links supplied by the business.
 const branchCoordinates = [
   [13.8032461, 100.2964146], [13.8202602, 100.4793101],
