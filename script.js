@@ -263,3 +263,45 @@ ageForm.addEventListener('submit', event => {
   output.classList.toggle('is-error', Boolean(result.error));
   output.textContent = result.error || 'อายุรถเต็ม ' + result.years + ' ปี · ' + result.message;
 });
+
+// Progressive enhancement: content stays visible even without animation support.
+// Animate once on arrival; never animate phone/map links or fixed navigation.
+function setupScrollReveal() {
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motion.matches || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+  const targets = document.querySelectorAll(
+    'main h2:not(#contact-title), .services-list > li, .steps > article, .branch-row h3'
+  );
+  const running = new Set();
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      entry.target.dataset.scrollRevealed = 'true';
+      if (motion.matches) return;
+      const animation = entry.target.animate([
+        { opacity: 0.25, transform: 'translateY(14px)' },
+        { opacity: 1, transform: 'translateY(0)' }
+      ], { duration: 340, easing: 'cubic-bezier(0.2, 0.65, 0.3, 1)' });
+      running.add(animation);
+      animation.onfinish = animation.oncancel = () => running.delete(animation);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -24px 0px' });
+  targets.forEach(target => {
+    const rect = target.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      target.dataset.scrollRevealed = 'true';
+    } else {
+      observer.observe(target);
+    }
+  });
+  motion.addEventListener('change', event => {
+    if (!event.matches) return;
+    observer.disconnect();
+    running.forEach(animation => animation.cancel());
+  });
+  window.addEventListener('beforeprint', () => {
+    running.forEach(animation => animation.cancel());
+  });
+}
+setupScrollReveal();
