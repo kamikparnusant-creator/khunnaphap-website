@@ -84,6 +84,31 @@ branchCards.forEach((card, index) => {
   option.textContent = card.querySelector('h3').textContent;
   branchChoice.append(option);
 });
+function selectContactBranch(index) {
+  const card = branchCards[index];
+  const panel = document.querySelector('#selected-contact');
+  panel.hidden = !card;
+  document.body.classList.toggle('has-selected-branch', Boolean(card));
+  branchCards.forEach((item, i) => {
+    item.classList.toggle('selected-branch', i === index);
+  });
+  if (!card) return;
+  const name = card.querySelector('h3').textContent;
+  document.querySelector('#selected-name').textContent = name;
+  const phone = document.querySelector('#selected-phone');
+  phone.href = card.querySelector('.branch-phone').href;
+  phone.setAttribute('aria-label', 'โทร ' + name);
+  const map = document.querySelector('#selected-map');
+  map.href = 'https://www.google.com/maps/dir/?api=1&destination=' + branchCoordinates[index].join(',') + '&travelmode=driving';
+  map.setAttribute('aria-label', 'นำทางไป ' + name + ' ในแท็บใหม่');
+}
+document.querySelector('#clear-branch').addEventListener('click', () => {
+  selectContactBranch(-1);
+  branchChoice.value = '';
+  branchChoice.dispatchEvent(new Event('change'));
+  branchChoice.scrollIntoView({ block: 'center', behavior: 'auto' });
+  branchChoice.focus({ preventScroll: true });
+});
 function resetBranches() {
   branchCards.forEach(card => {
     card.hidden = false;
@@ -96,6 +121,7 @@ branchChoice.addEventListener('change', () => {
   locationRequest++;
   nearestButton.disabled = false;
   resetBranches();
+  selectContactBranch(branchChoice.value === '' ? -1 : Number(branchChoice.value));
   if (branchChoice.value !== '') {
     branchCards.forEach((card, index) => { card.hidden = index !== Number(branchChoice.value); });
   }
@@ -176,4 +202,58 @@ posterDialog.addEventListener('click', event => {
 posterDialog.addEventListener('close', () => {
   document.body.style.overflow = previousOverflow;
   posterOpener?.focus({ preventScroll: true });
+});
+
+// Date-only arithmetic avoids timezone shifts. The form accepts Buddhist years.
+function thailandToday(date = new Date()) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit'
+  }).formatToParts(date).map(p => [p.type, p.value]));
+  return parts.year + '-' + parts.month + '-' + parts.day;
+}
+function evaluateVehicleAge(kind, yearBE, month, day, tax, special, todayISO = thailandToday()) {
+  const y = Number(yearBE) - 543, m = Number(month), d = Number(day);
+  const date = new Date(Date.UTC(y, m - 1, d));
+  const today = new Date(todayISO + 'T00:00:00Z');
+  if (!['car', 'van', 'pickup', 'motorcycle'].includes(kind) ||
+      !Number.isInteger(y) || y < 1857 || !Number.isInteger(m) || !Number.isInteger(d) ||
+      date.getUTCFullYear() !== y || date.getUTCMonth() !== m - 1 || date.getUTCDate() !== d) {
+    return { error: 'กรุณาเลือกประเภทรถและวันที่ที่มีอยู่จริง โดยกรอกปีเป็น พ.ศ.' };
+  }
+  if (date > today) return { error: 'วันจดทะเบียนครั้งแรกต้องไม่เป็นวันในอนาคต' };
+  const threshold = kind === 'motorcycle' ? 5 : 7;
+  // Feb 29 anniversaries in non-leap years roll forward to March 1.
+  const due = new Date(Date.UTC(y + threshold, m - 1, d));
+  let years = today.getUTCFullYear() - y;
+  if (today < new Date(Date.UTC(y + years, m - 1, d))) years--;
+  const dateLabel = new Intl.DateTimeFormat('th-TH', {
+    timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric'
+  }).format(due);
+  let message = today >= due
+    ? 'ถึงเกณฑ์อายุ ' + threshold + ' ปีแล้ว ควรเตรียมตรวจสภาพก่อนต่อภาษี'
+    : 'ยังไม่ถึงเกณฑ์อายุ ' + threshold + ' ปี ณ วันนี้ โดยจะครบวันที่ ' + dateLabel;
+  if (tax === 'overdue') message = 'ค้างภาษีเกิน 1 ปี ต้องตรวจสภาพก่อนชำระภาษี แม้อายุรถยังไม่ถึงเกณฑ์';
+  if (special || tax === 'unsure') message += ' · กรุณาสอบถามสาขาเพื่อเช็กเงื่อนไขและสถานที่ตรวจที่เหมาะสม';
+  if (tax === 'suspended') message = 'กรุณาติดต่อสำนักงานขนส่งเพื่อตรวจสอบสถานะทะเบียนและขั้นตอนดำเนินการก่อน';
+  return { years, threshold, message };
+}
+const ageForm = document.querySelector('#age-form');
+const regDay = document.querySelector('#reg-day');
+const regMonth = document.querySelector('#reg-month');
+const regYear = document.querySelector('#reg-year');
+for (let day = 1; day <= 31; day++) regDay.add(new Option(String(day), String(day)));
+['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'].forEach((month, i) => regMonth.add(new Option(month, String(i + 1))));
+regYear.max = String(Number(thailandToday().slice(0, 4)) + 543);
+ageForm.addEventListener('input', () => { document.querySelector('#age-result').hidden = true; });
+ageForm.addEventListener('change', () => { document.querySelector('#age-result').hidden = true; });
+ageForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const result = evaluateVehicleAge(
+    document.querySelector('#vehicle-kind').value, regYear.value, regMonth.value, regDay.value,
+    document.querySelector('#tax-condition').value, document.querySelector('#vehicle-special').checked
+  );
+  const output = document.querySelector('#age-result');
+  output.hidden = false;
+  output.classList.toggle('is-error', Boolean(result.error));
+  output.textContent = result.error || 'อายุรถเต็ม ' + result.years + ' ปี · ' + result.message;
 });

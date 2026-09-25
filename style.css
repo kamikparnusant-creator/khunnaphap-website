@@ -1,4 +1,22 @@
 :root{--ink:#2d213e;--muted:#000000;--paper:#fcfafc;--purple:#7645b5;--soft:#f1eaf8;--line:#e6dfec;--yellow:#f5df69}
+.age-tool{border:1px solid var(--line);border-radius:24px;padding:32px;background:#fff}
+.age-tool h2{font-size:clamp(26px,3vw,38px)}.age-tool>p{color:#29232f}
+#age-form{display:grid;gap:12px;max-width:700px}#age-form>label, #age-form legend{font-weight:600}
+#age-form select,#age-form input[type=number]{font:inherit;color:var(--ink);background:var(--paper);border:1px solid #b9a8cc;border-radius:12px;padding:12px;width:100%;min-width:0;min-height:48px}
+#age-form fieldset{border:0;padding:0;margin:8px 0;min-width:0}
+.registration-date{display:grid;grid-template-columns:.7fr 1.4fr 1fr;gap:10px}.registration-date label{min-width:0;font-size:14px}
+.age-special{display:flex;gap:10px;align-items:flex-start;padding:12px 0}.age-special input{width:20px;height:20px;flex:none;margin-top:4px;accent-color:var(--purple)}
+.age-result{padding:20px;border-radius:16px;background:var(--soft);border-left:4px solid var(--purple);color:var(--ink);font-weight:600}
+.age-result.is-error{background:#fff1ee;border-color:#b03420;color:#832918}.age-note{font-size:14px;margin:20px 0 8px}.age-source{color:var(--purple);text-decoration:underline;font-size:14px}
+.choose-branch{width:100%;min-height:48px;margin-top:20px;border-radius:12px;border:1px solid var(--purple);color:var(--purple);background:var(--soft);font-weight:700}
+.branch-card.selected-branch{outline:2px solid var(--purple);outline-offset:2px}.choose-branch[aria-pressed=true]{background:var(--purple);color:#fff}
+.selected-contact[hidden]{display:none}.selected-contact{position:fixed;bottom:0;left:0;right:0;z-index:40;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 24px #2d213e16;display:flex;align-items:center;justify-content:center;gap:24px;padding:12px 24px calc(12px + env(safe-area-inset-bottom))}
+.selected-label{min-width:0}.selected-label small{display:block;color:#63536e}.selected-label strong{display:block;font-size:16px}
+.selected-actions{display:flex;gap:8px}.selected-actions a,.selected-actions button{display:flex;justify-content:center;align-items:center;min-height:48px;padding:10px 18px;border-radius:12px;border:1px solid var(--purple);background:var(--soft);color:var(--purple);font-weight:700;font-size:15px}
+.selected-actions a:first-child{background:var(--purple);color:white}
+body.has-selected-branch{padding-bottom:160px}body.has-selected-branch .mobile-dock{display:none}body.has-selected-branch .contact-social{bottom:calc(166px + env(safe-area-inset-bottom))}
+@media(max-width:760px){.age-tool{padding:22px 16px}.registration-date{gap:6px}#age-form select,#age-form input[type=number]{padding:10px 6px;font-size:16px}.selected-contact{padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:block}.selected-label{margin-bottom:8px}.selected-label small{display:none}.selected-label strong{font-size:14px}.selected-actions{display:grid;grid-template-columns:1fr 1fr auto}.selected-actions a,.selected-actions button{font-size:13px;padding:8px}.selected-contact .selected-label strong{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:no-preference){.button,.branch-map,.branch-phone,.choose-branch,.selected-actions a,.selected-actions button{transition:background-color .18s,box-shadow .18s,transform .18s}.button:active,.branch-map:active,.branch-phone:active,.choose-branch:active,.selected-actions a:active,.selected-actions button:active{transform:scale(.98)}.branch-card{transition:outline-color .2s,box-shadow .2s}.branch-card.selected-branch{box-shadow:0 8px 24px #7645b51c}.age-result:not([hidden]),.selected-contact:not([hidden]){animation:soft-enter .2s ease-out}@keyframes soft-enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}}
 /* Optional customer tools: no location request until the customer clicks. */
 .branch-finder{display:flex;align-items:center;flex-wrap:wrap;gap:16px;padding:24px;background:var(--soft);border:1px solid var(--line);border-radius:24px;margin-bottom:24px}
 .branch-finder select{min-height:48px;max-width:100%;padding:10px;border:1px solid var(--purple);border-radius:12px;background:white;color:var(--ink);font:inherit}

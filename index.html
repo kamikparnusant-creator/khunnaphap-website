@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=single-expand-20260925" />
+    <link rel="stylesheet" href="style.css?v=smart-tools-20260925" />
     <link rel="stylesheet" href="guide.css?v=accordion-20260909" />
   </head>
   <body>
@@ -47,7 +47,28 @@
 
       <section class="process-section" id="process"><div class="process-head"><p class="section-kicker">ขั้นตอนรับบริการ</p><h2>ตรวจรถได้ง่าย<br /><em>เข้าใจทุกขั้นตอน</em></h2></div><div class="steps"><article><span>1</span><h3>เข้ารับบริการ</h3><p>นำรถและเล่มทะเบียนเข้ารับบริการที่ศูนย์ตรวจสภาพ</p></article><article><span>2</span><h3>นำรถเข้าตรวจ</h3><p>ตรวจตามรายการที่เหมาะกับประเภทรถและการเข้ารับบริการ</p></article><article><span>3</span><h3>รับผลและคำแนะนำ</h3><p>รับผลตรวจที่เข้าใจง่าย พร้อมคำแนะนำเฉพาะรถของคุณ</p></article></div></section>
 
-      <section class="eligibility eligibility-poster" id="eligibility" aria-label="รถกี่ปีต้องตรวจสภาพ"><a class="vehicle-age-poster" href="assets/vehicle-age-20260919.png" target="_blank" rel="noopener noreferrer" aria-label="เปิดภาพเกณฑ์อายุรถขนาดเต็มในแท็บใหม่"><img src="assets/vehicle-age-20260919.png" width="1536" height="1024" loading="lazy" alt="รถกี่ปีต้องตรวจสภาพก่อนต่อภาษีประจำปี: รถยนต์นั่งส่วนบุคคลไม่เกิน 7 คน รถยนต์นั่งส่วนบุคคลเกิน 7 คน และรถยนต์บรรทุกส่วนบุคคล อายุครบ 7 ปีขึ้นไป รถจักรยานยนต์ส่วนบุคคล อายุครบ 5 ปีขึ้นไป นับอายุรถจากวันจดทะเบียนครั้งแรก" /></a><div class="guide-alert"><span>!</span><p><strong>รถค้างภาษีเกิน 1 ปี</strong> ต้องผ่านการตรวจสภาพก่อนชำระภาษีประจำปี</p></div></section>
+      <section class="eligibility eligibility-poster" id="eligibility" aria-label="รถกี่ปีต้องตรวจสภาพ">
+        <div class="age-tool">
+          <p class="section-kicker">เช็กก่อนเดินทาง</p><h2>รถของคุณ<span>ถึงเกณฑ์หรือยัง?</span></h2>
+          <p>เลือกประเภทรถและวันจดทะเบียนครั้งแรกจากเล่มทะเบียน เพื่อเช็กอายุรถ ณ วันนี้</p>
+          <form id="age-form">
+            <label for="vehicle-kind">ประเภทรถส่วนบุคคล</label>
+            <select id="vehicle-kind" required><option value="">เลือกประเภทรถ</option><option value="car">รถยนต์นั่งไม่เกิน 7 คน</option><option value="van">รถยนต์นั่งเกิน 7 คน</option><option value="pickup">รถยนต์บรรทุกส่วนบุคคล</option><option value="motorcycle">รถจักรยานยนต์ส่วนบุคคล</option></select>
+            <fieldset><legend>วันจดทะเบียนครั้งแรก (ปี พ.ศ.)</legend><div class="registration-date">
+              <label>วัน<select id="reg-day" required><option value="">วัน</option></select></label>
+              <label>เดือน<select id="reg-month" required><option value="">เดือน</option></select></label>
+              <label>ปี พ.ศ.<input id="reg-year" type="number" inputmode="numeric" min="2400" step="1" placeholder="เช่น 2562" required /></label>
+            </div></fieldset>
+            <label for="tax-condition">สถานะภาษี / ทะเบียน</label>
+            <select id="tax-condition"><option value="normal">ไม่ค้างภาษีเกิน 1 ปี</option><option value="overdue">ค้างภาษีเกิน 1 ปี แต่ยังไม่ครบ 3 ปี</option><option value="suspended">ค้างภาษีครบ 3 ปี หรือทะเบียนระงับ</option><option value="unsure">ไม่แน่ใจ</option></select>
+            <label class="age-special"><input id="vehicle-special" type="checkbox" /> รถดัดแปลง / ติดตั้งแก๊ส / เปลี่ยนเครื่อง หรือมีกรณีพิเศษ</label>
+            <button class="button button-dark" type="submit">เช็กอายุรถของฉัน ↓</button>
+            <div id="age-result" class="age-result" role="status" hidden></div>
+          </form>
+          <p class="age-note">เป็นการเช็กเบื้องต้นสำหรับรถส่วนบุคคล ไม่ใช่ผลตรวจสภาพหรือการยืนยันสิทธิชำระภาษี หากต่อภาษีล่วงหน้าหรือเป็นรถประเภทอื่น โปรดสอบถามสาขา · ไม่บันทึกข้อมูลที่กรอก</p>
+          <a class="age-source" href="https://eservice.dlt.go.th/esvapp/esv/ebk/condition/index.jsf" target="_blank" rel="noopener noreferrer">อ่านเงื่อนไขกรมการขนส่งทางบก ↗</a>
+        </div>
+<a class="vehicle-age-poster" href="assets/vehicle-age-20260919.png" target="_blank" rel="noopener noreferrer" aria-label="เปิดภาพเกณฑ์อายุรถขนาดเต็มในแท็บใหม่"><img src="assets/vehicle-age-20260919.png" width="1536" height="1024" loading="lazy" alt="รถกี่ปีต้องตรวจสภาพก่อนต่อภาษีประจำปี: รถยนต์นั่งส่วนบุคคลไม่เกิน 7 คน รถยนต์นั่งส่วนบุคคลเกิน 7 คน และรถยนต์บรรทุกส่วนบุคคล อายุครบ 7 ปีขึ้นไป รถจักรยานยนต์ส่วนบุคคล อายุครบ 5 ปีขึ้นไป นับอายุรถจากวันจดทะเบียนครั้งแรก" /></a><div class="guide-alert"><span>!</span><p><strong>รถค้างภาษีเกิน 1 ปี</strong> ต้องผ่านการตรวจสภาพก่อนชำระภาษีประจำปี</p></div></section>
 
 <section class="inspection-guide" id="preparation"><div class="guide-heading"><p class="section-kicker">เตรียมตัวก่อนมา</p><h2>เตรียมพร้อม<br />ก่อน<span>เข้าตรวจ</span></h2></div><a class="vehicle-age-poster" href="assets/inspection-documents-20260925.png" target="_blank" rel="noopener noreferrer" aria-label="เปิดภาพเอกสารที่ต้องใช้ในการตรวจสภาพรถขนาดเต็มในแท็บใหม่"><img src="assets/inspection-documents-20260925.png" width="1024" height="1536" loading="lazy" alt="เอกสารที่ต้องใช้ในการตรวจสภาพรถ: เตรียมเล่มทะเบียนรถตัวจริงหรือสำเนาคู่มือจดทะเบียนรถ พร้อมนำรถเข้ารับการตรวจสภาพ ตรวจล่วงหน้าได้ไม่เกิน 3 เดือนก่อนวันครบกำหนดชำระภาษีประจำปี รถยนต์ส่วนบุคคล 7 ปีขึ้นไป รถจักรยานยนต์ส่วนบุคคล 5 ปีขึ้นไป และรถค้างภาษีเกิน 1 ปีต้องตรวจสภาพก่อนชำระภาษี หากภาษีค้างเกิน 3 ปีหรือทะเบียนโดนระงับ ให้ติดต่อสำนักงานขนส่ง" /></a></section>
 
@@ -92,6 +113,10 @@
       <div class="poster-toolbar"><strong id="poster-title">ดูรูปขนาดใหญ่</strong><button type="button" id="poster-close" aria-label="ปิดรูป">ปิด ×</button></div>
       <div class="poster-scroll"><img id="poster-full" alt="" /></div>
     </dialog>
-    <script src="script.js?v=short-status-20260925"></script>
+    <aside class="selected-contact" id="selected-contact" aria-label="ติดต่อสาขาที่เลือก" hidden>
+      <div class="selected-label"><small>สาขาที่เลือก</small><strong id="selected-name"></strong></div>
+      <div class="selected-actions"><a id="selected-phone">📞 โทรสาขานี้</a><a id="selected-map" target="_blank" rel="noopener noreferrer">🗺️ นำทาง</a><button type="button" id="clear-branch">เปลี่ยนสาขา</button></div>
+    </aside>
+    <script src="script.js?v=branch-dropdown-20260925"></script>
   </body>
 </html>
