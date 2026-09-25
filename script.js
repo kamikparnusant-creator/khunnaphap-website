@@ -282,7 +282,7 @@ function setupScrollReveal() {
       const animation = entry.target.animate([
         { opacity: 0.25, transform: 'translateY(14px)' },
         { opacity: 1, transform: 'translateY(0)' }
-      ], { duration: 340, easing: 'cubic-bezier(0.2, 0.65, 0.3, 1)' });
+      ], { duration: 700, easing: 'cubic-bezier(0.2, 0.65, 0.3, 1)' });
       running.add(animation);
       animation.onfinish = animation.oncancel = () => running.delete(animation);
     });
