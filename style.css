@@ -1,4 +1,20 @@
 :root{--ink:#2d213e;--muted:#000000;--paper:#fcfafc;--purple:#7645b5;--soft:#f1eaf8;--line:#e6dfec;--yellow:#f5df69}
+/* Optional customer tools: no location request until the customer clicks. */
+.branch-finder{display:flex;align-items:center;flex-wrap:wrap;gap:16px;padding:24px;background:var(--soft);border:1px solid var(--line);border-radius:24px;margin-bottom:24px}
+.branch-finder select{min-height:48px;max-width:100%;padding:10px;border:1px solid var(--purple);border-radius:12px;background:white;color:var(--ink);font:inherit}
+.branch-finder p{flex-basis:100%;margin:0;color:#26202d;font-size:14px}
+.branch-finder button:disabled{opacity:.65;cursor:wait}
+.branch-card[hidden]{display:none!important}.branch-card.nearest-branch{border:2px solid var(--purple)}
+.branch-card .branch-distance{font-size:14px;color:var(--purple);font-weight:700;background:var(--soft);padding:8px 12px;border-radius:12px}
+.poster-toolbar button{min-height:44px;border:1px solid var(--purple);border-radius:12px;background:var(--soft);color:var(--purple);padding:8px 14px;font-weight:700}
+.vehicle-age-poster{position:relative}.poster-hint{position:absolute;right:12px;top:12px;padding:6px 12px;border-radius:20px;background:#fffefb;box-shadow:0 2px 12px #0002;color:var(--purple);font-size:14px;font-weight:700;border:1px solid var(--line)}
+#poster-dialog{padding:0;border:0;border-radius:20px;width:min(1100px,96vw);max-width:96vw;height:92vh;height:92dvh;max-height:96dvh;background:var(--paper)}
+#poster-dialog::backdrop{background:#170d29cc}
+.poster-toolbar{display:flex;align-items:center;gap:8px;padding:12px;background:white;border-bottom:1px solid var(--line)}
+.poster-toolbar strong{margin-right:auto;font-size:16px}.poster-scroll{height:calc(100% - 70px);overflow:auto;padding:12px;overscroll-behavior:contain}
+#poster-full{display:block;width:100%;height:auto;margin:auto;max-width:100%;touch-action:pan-x pan-y pinch-zoom}
+#poster-dialog.is-zoomed #poster-full{width:1600px;max-width:none}
+@media(max-width:760px){.branch-finder{padding:18px;gap:12px}.branch-finder .button,.branch-finder select{width:100%}.poster-toolbar strong{font-size:13px}.poster-toolbar button{padding:8px;font-size:14px}.poster-hint{font-size:12px;top:6px;right:6px}}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:152px}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans Thai',sans-serif;font-size:16px;line-height:1.8}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}img{max-width:100%}a,button,summary{-webkit-tap-highlight-color:transparent}:focus-visible{outline:3px solid var(--purple);outline-offset:5px}
 .site-header{height:140px;padding:10px max(5vw,calc((100vw - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:24px;background:#fcfafcf5;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(14px)}
 .brand{display:flex;align-items:center;gap:12px;font-size:29px;font-weight:800;line-height:1.3;letter-spacing:-1px}.brand>span{white-space:nowrap}.brand-dot{color:var(--purple)}.brand-mark{width:64px;height:64px;flex:none;object-fit:contain;border-radius:50%;border:2px solid var(--purple);background:#fff2a8}.site-header .brand-mark{width:120px;height:120px}

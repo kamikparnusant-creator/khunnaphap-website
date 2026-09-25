@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=footer-right-20260919" />
+    <link rel="stylesheet" href="style.css?v=map-zoom-20260925" />
     <link rel="stylesheet" href="guide.css?v=accordion-20260909" />
   </head>
   <body>
@@ -57,6 +57,12 @@
           <div><p class="section-kicker">สาขาที่ให้บริการ</p><h2 id="branches-title">ใกล้บ้านคุณ<br /><span>พร้อมดูแลทุกเส้นทาง</span></h2><p class="branches-intro">สะดวกสาขาไหน ติดต่อสาขาใกล้บ้านได้เลยค่ะ</p></div>
           <div class="branch-hours"><span class="hours-icon" aria-hidden="true">◷</span><div><strong>เวลาเปิดบริการทุกสาขา</strong><p>จันทร์–เสาร์ <b>08.00–17.00 น.</b></p></div></div>
         </div>
+        <div class="branch-finder">
+          <button class="button button-dark" id="find-nearest" type="button">⌖ ค้นหาสาขาใกล้ฉัน</button>
+          <label for="branch-choice">หรือเลือกสาขาเอง</label>
+          <select id="branch-choice"><option value="">ทุกสาขา</option></select>
+          <p id="location-status" role="status">ขอใช้ตำแหน่งเมื่อคุณกดค้นหาเท่านั้น คำนวณในเครื่องโดยไม่บันทึกตำแหน่ง</p>
+        </div>
         <div class="branch-grid">
           <article class="branch-card"><h3>ตรอ.คุณภาพ (ศาลายา)</h3><a class="branch-phone" href="tel:034100199" aria-label="โทร ตรอ.คุณภาพ ศาลายา 034-100199"><span aria-hidden="true">📞</span>034-100199<span class="phone-action">โทรเลย</span></a><a class="branch-map" href="https://maps.app.goo.gl/JCLthVub7QCfy5bk9" target="_blank" rel="noopener noreferrer" aria-label="เปิดหมุด ตรอ.คุณภาพ ในแท็บใหม่"><span aria-hidden="true">🚗</span> เปิดแผนที่สาขา</a><div class="branch-location"><h4>ที่ตั้งสาขา</h4><address>นฐ.4006 ต.ศาลายา อ.พุทธมณฑล<br />จ.นครปฐม 73170</address></div></article>
           <article class="branch-card"><h3>ตรอ.หนุ่มคุณภาพ (บางกรวย)</h3><a class="branch-phone" href="tel:028836489" aria-label="โทร ตรอ.หนุ่มคุณภาพ บางกรวย 02-8836489"><span aria-hidden="true">📞</span>02-8836489<span class="phone-action">โทรเลย</span></a><a class="branch-map" href="https://maps.app.goo.gl/WJpzjdQqyFQhFX6s6" target="_blank" rel="noopener noreferrer" aria-label="เปิดหมุด ตรอ.หนุ่มคุณภาพ สาขาบางกรวยในแท็บใหม่"><span aria-hidden="true">🚗</span> เปิดแผนที่สาขา</a><div class="branch-location"><h4>ที่ตั้งสาขา</h4><address>117/20 หมู่ 4 ถ.บางกรวย - ไทรน้อย<br />ต.บางสีทอง อ.บางกรวย จ.นนทบุรี 11130</address></div></article>
@@ -82,6 +88,10 @@
       <a href="#faq"><span>?</span>คำถาม</a>
     </nav>
     <footer><a class="brand" href="#top"><img class="brand-mark" src="assets/tro-logo.jpg" alt="ตรอ.คุณภาพ" /><span>ตรอ.<span class="brand-dot">คุณภาพ</span></span></a><p>เบอร์โทรร้องเรียน<br /><a href="tel:0944724605" aria-label="โทรร้องเรียน 094-472-4605"><strong>📞 094-472-4605</strong></a></p><a class="footer-top" href="#top">กลับด้านบน ↑</a><small>© ตรอ.คุณภาพ · สถานตรวจสภาพรถเอกชน</small></footer>
-    <script src="script.js?v=start-top-20260909"></script>
+    <dialog id="poster-dialog" aria-labelledby="poster-title">
+      <div class="poster-toolbar"><strong id="poster-title">ดูรูปขนาดใหญ่</strong><button type="button" id="poster-zoom">ขยายรูป +</button><button type="button" id="poster-close" aria-label="ปิดรูป">ปิด ×</button></div>
+      <div class="poster-scroll"><img id="poster-full" alt="" /></div>
+    </dialog>
+    <script src="script.js?v=map-zoom-20260925"></script>
   </body>
 </html>
