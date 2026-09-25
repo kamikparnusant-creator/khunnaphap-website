@@ -83,6 +83,34 @@ branchCards.forEach((card, index) => {
   option.value = String(index);
   option.textContent = card.querySelector('h3').textContent;
   branchChoice.append(option);
+  const heading = card.querySelector('h3');
+  const title = heading.textContent;
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'branch-toggle';
+  toggle.textContent = title;
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-controls', 'branch-detail-' + index);
+  heading.replaceChildren(toggle);
+  const header = document.createElement('div');
+  header.className = 'branch-row';
+  const quickPhone = document.createElement('a');
+  quickPhone.className = 'branch-quick-phone';
+  quickPhone.href = card.querySelector('.branch-phone').href;
+  quickPhone.textContent = '📞';
+  quickPhone.setAttribute('aria-label', 'โทร ' + title);
+  quickPhone.title = card.querySelector('.branch-phone').getAttribute('aria-label');
+  const panel = document.createElement('div');
+  panel.className = 'branch-detail';
+  panel.id = 'branch-detail-' + index;
+  panel.hidden = true;
+  [...card.children].filter(child => child !== heading).forEach(child => panel.append(child));
+  header.append(heading, quickPhone);
+  card.replaceChildren(header, panel);
+  card.classList.add('branch-accordion');
+  toggle.addEventListener('click', () => {
+    selectContactBranch(toggle.getAttribute('aria-expanded') === 'true' ? -1 : index);
+  });
 });
 function selectContactBranch(index) {
   const card = branchCards[index];
@@ -91,6 +119,8 @@ function selectContactBranch(index) {
   document.body.classList.toggle('has-selected-branch', Boolean(card));
   branchCards.forEach((item, i) => {
     item.classList.toggle('selected-branch', i === index);
+    item.querySelector('.branch-toggle').setAttribute('aria-expanded', String(i === index));
+    item.querySelector('.branch-detail').hidden = i !== index;
   });
   if (!card) return;
   const name = card.querySelector('h3').textContent;
@@ -110,6 +140,7 @@ document.querySelector('#clear-branch').addEventListener('click', () => {
   branchChoice.focus({ preventScroll: true });
 });
 function resetBranches() {
+  selectContactBranch(-1);
   branchCards.forEach(card => {
     card.hidden = false;
     card.classList.remove('nearest-branch');
@@ -158,6 +189,7 @@ nearestButton.addEventListener('click', () => {
       card.classList.toggle('nearest-branch', index === 0);
       branchGrid.append(card);
     });
+    selectContactBranch(branchCards.indexOf(sorted[0].card));
     locationStatus.textContent = 'เรียงจากใกล้ไปไกลแล้ว ระยะทางเป็นเส้นตรง ไม่ใช่ระยะขับรถ โปรดกดเปิดแผนที่เพื่อดูเส้นทางจริง' +
       (position.coords.accuracy > 1000 ? ' · ตำแหน่งที่ได้รับมีความแม่นยำต่ำ ผลอาจคลาดเคลื่อน' : '');
   }, error => {
