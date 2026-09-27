@@ -140,16 +140,17 @@ body.at-intro .site-header .brand,body.at-intro .main-nav>a{text-shadow:0 1px 6p
 body.at-intro .menu-toggle{background:transparent;border:0;box-shadow:none}
 @media(max-width:760px){body .site-header{height:76px}}
 body.at-intro .mobile-dock{visibility:hidden;pointer-events:none}
-main>.contact-social{position:static;max-width:none;width:100vw;margin:64px calc(50% - 50vw) 0;padding:64px 24px 56px;background:#21182c;color:#fff;text-align:center}
-.contact-social h2{position:static;width:auto;height:auto;padding:0;margin:0 0 32px;overflow:visible;clip-path:none;white-space:normal;font-size:26px;color:#fff}
-.contact-social .social-links{flex-direction:row;justify-content:center;gap:24px}
-.contact-social .social-links a{width:80px;height:80px;border:1px solid #8b729e;border-radius:12px;background:#34263f;box-shadow:none}
+main>.contact-social{position:static;max-width:none;width:100vw;margin:40px calc(50% - 50vw) 0;padding:32px 24px 28px;background:#21182c;color:#fff;text-align:center}
+.contact-social h2{position:static;width:auto;height:auto;padding:0;margin:0 0 20px;overflow:visible;clip-path:none;white-space:normal;font-size:20px;color:#fff}
+.contact-social .social-links{flex-direction:row;justify-content:center;gap:16px}
+.contact-social .social-links a{width:56px;height:56px;border:1px solid #8b729e;border-radius:10px;background:#34263f;box-shadow:none}
 .contact-social .social-links a:hover{background:#4c365e;border-color:#c9abe5}
 .contact-social .social-links a:focus-visible{outline:3px solid #dac6ed;outline-offset:5px}
-.contact-social .social-links svg{width:34px;height:34px;fill:#fff}
-footer.contact-footer{max-width:none;margin:0;background:#21182c;color:#fff;padding:28px 5vw 36px;border-top:1px solid #ffffff30;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px}
-.contact-footer .brand-dot,.contact-footer .footer-top{color:#d8baf4}.contact-footer small{width:100%;border:0;margin:0;padding-top:20px;color:#e4dce9;text-align:center}
-@media(max-width:760px){main>.contact-social{padding:44px 20px;margin-top:40px}.contact-social h2{font-size:24px}footer.contact-footer{flex-direction:row;padding:24px 20px 32px}.contact-footer .brand{font-size:24px}}
+.contact-social .social-links svg{width:26px;height:26px;fill:#fff}
+footer.contact-footer{max-width:none;margin:0;background:#21182c;color:#fff;padding:18px 5vw 20px;border-top:1px solid #ffffff30;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+.contact-footer .brand{font-size:22px}.contact-footer .footer-top{font-size:14px}
+.contact-footer .brand-dot,.contact-footer .footer-top{color:#d8baf4}.contact-footer small{width:100%;border:0;margin:0;padding-top:8px;color:#e4dce9;text-align:center;font-size:12px}
+@media(max-width:760px){main>.contact-social{padding:28px 20px 24px;margin-top:28px}.contact-social h2{font-size:18px}footer.contact-footer{flex-direction:row;padding:16px 20px 20px}.contact-footer .brand{font-size:20px}}
 body .hero-cinema .hero-film{height:100svh;min-height:360px}
 .mobile-welcome{display:none}
 @media(max-width:760px){
