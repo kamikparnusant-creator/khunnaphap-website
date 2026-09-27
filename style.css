@@ -163,6 +163,9 @@ footer.contact-footer{padding:12px 5vw 14px;gap:6px}
 .contact-footer .footer-top{font-size:13px;padding:8px 0}
 .contact-footer small{padding-top:4px;font-size:11px}
 @media(max-width:760px){main>.contact-social{padding:16px 20px;gap:18px;margin-top:20px}.contact-social h2{font-size:16px}footer.contact-footer{padding:10px 20px 12px}.contact-footer .brand{font-size:18px}}
+main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bottom:14px}
+.contact-social h2{font-size:14px;line-height:1.4;margin:0}
+@media(max-width:760px){main>.contact-social{gap:8px;padding-top:12px;padding-bottom:12px}.contact-social h2{font-size:13px}}
 .mobile-welcome{display:none}
 @media(max-width:760px){
   body .hero-cinema .hero-film{background:#f1eaf8}
