@@ -33,6 +33,9 @@ document.addEventListener('keydown', event => {
     menu.focus();
   }
 });
+document.addEventListener('click', event => {
+  if (nav.classList.contains('open') && !nav.contains(event.target) && !menu.contains(event.target)) menu.click();
+});
 const shortcuts = document.querySelectorAll('.mobile-dock a');
 function updateShortcut() {
   const current = location.hash || '#top';
@@ -320,7 +323,12 @@ setupScrollReveal();
   const video = document.getElementById('hero-video');
   if (!video) return;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  let wantsPlayback = !motion.matches && !navigator.connection?.saveData;
+  const mobileHero = matchMedia('(max-width: 760px)');
+  let wantsPlayback = !motion.matches && !navigator.connection?.saveData && !mobileHero.matches;
+  mobileHero.addEventListener('change', () => {
+    wantsPlayback = !mobileHero.matches && !motion.matches && !navigator.connection?.saveData;
+    if (wantsPlayback && !document.hidden) play(); else video.pause();
+  });
   const play = () => { video.muted = true; video.play().catch(() => {}); };
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) video.pause(); else if (wantsPlayback) play();
