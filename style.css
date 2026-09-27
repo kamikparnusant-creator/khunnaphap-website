@@ -126,7 +126,9 @@ main > .hero-cinema{display:block;max-width:none;width:100vw;margin-left:calc(50
 /* One centered entry action over an edge-to-edge video. */
 .hero-cinema .hero-film{height:calc(100svh - 140px);min-height:360px}
 .hero-cinema .hero-film::after{display:none}
-.hero-cinema .hero-film video{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-cinema .hero-film{overflow:hidden}
+/* Size the media itself at 16:9, including its poster on mobile Safari. */
+.hero-cinema .hero-film video{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:max(100%,177.778vh,640px);width:max(100%,177.778svh,640px);height:auto;max-width:none;aspect-ratio:16/9;object-fit:cover;object-position:center}
 .hero-start{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;min-width:160px;min-height:58px;padding:14px 40px;border-radius:999px;background:var(--purple);color:#fff;font-size:20px;font-weight:700;box-shadow:0 6px 28px #0003;border:1px solid #ffffff80}
 .hero-start{background:var(--soft);color:var(--purple);border:1px solid var(--purple);border-radius:14px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
 .hero-start:hover{background:#e6d9f4}.hero-start:focus-visible{outline:3px solid #fff;outline-offset:5px}
