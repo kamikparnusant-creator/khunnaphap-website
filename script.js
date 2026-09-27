@@ -305,3 +305,28 @@ function setupScrollReveal() {
   });
 }
 setupScrollReveal();
+
+// Autoplay stays silent; reduced-motion and data-saving users get the poster.
+(() => {
+  const hero = document.querySelector('.hero-cinema');
+  if (!hero) return;
+  const update = () => document.body.classList.toggle('at-intro', hero.getBoundingClientRect().bottom > 160);
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+(() => {
+  const video = document.getElementById('hero-video');
+  if (!video) return;
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let wantsPlayback = !motion.matches && !navigator.connection?.saveData;
+  const play = () => { video.muted = true; video.play().catch(() => {}); };
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) video.pause(); else if (wantsPlayback) play();
+  });
+  motion.addEventListener('change', () => {
+    if (motion.matches) { wantsPlayback = false; video.pause(); }
+  });
+  if (wantsPlayback) play();
+})();

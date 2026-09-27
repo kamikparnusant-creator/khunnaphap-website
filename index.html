@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=map-pin-20260926" />
+    <link rel="stylesheet" href="style.css?v=soft-hero-20260927" />
     <link rel="stylesheet" href="guide.css?v=accordion-20260909" />
   </head>
-  <body>
+  <body class="at-intro">
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="ตรอ.คุณภาพ หน้าแรก"><img class="brand-mark" src="assets/tro-logo.jpg" alt="ตรอ.คุณภาพ" /><span>ตรอ.<span class="brand-dot">คุณภาพ</span></span></a>
+      <a class="brand" href="#top" aria-label="ตรอ.คุณภาพ หน้าแรก"><span>ตรอ.<span class="brand-dot">คุณภาพ</span></span></a>
       <nav class="main-nav" aria-label="เมนูหลัก">
         <a href="#services">บริการ</a><a href="#process">ขั้นตอน</a><a href="#preparation">เอกสารที่ต้องใช้</a><a href="#branches">สาขาและเบอร์โทร</a>
       </nav>
@@ -21,16 +21,12 @@
     </header>
 
     <main id="top">
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow"><i></i> สถานตรวจสภาพรถเอกชน</p>
-          <h1>ตรวจให้ชัด<br />ก่อนออก<span>ทุก</span>เส้นทาง</h1>
-          <p class="hero-text">ตรวจสภาพรถยนต์และรถจักรยานยนต์ พร้อมข้อมูลการเตรียมตัวและคำแนะนำที่เข้าใจง่าย</p>
-          <div class="hero-actions"><a href="#eligibility" class="button button-soft">รถกี่ปีต้องตรวจสภาพ <span aria-hidden="true">↓</span></a><a href="#preparation" class="button button-soft">เอกสารที่ต้องใช้ <span aria-hidden="true">↓</span></a></div>
-        </div>
-        <div class="hero-visual">
-          <img class="hero-photo" src="assets/station-user-20260908.png" alt="สถานตรวจสภาพรถ หนุ่มคุณภาพ อาคารป้ายเหลืองและสำนักงานสีม่วง" width="1672" height="941" fetchpriority="high" />
-          <div class="inspection-card"><span class="card-icon" aria-hidden="true">✓</span><div class="station-caption"><strong class="station-name">ตรอ.คุณภาพ</strong><strong class="station-tagline">ใส่ใจรถ ใส่ใจคุณ</strong></div></div>
+      <section class="hero hero-cinema" aria-label="ตรอ.คุณภาพ ตรวจสภาพรถอย่างมั่นใจ">
+        <div class="hero-film">
+          <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/station-user-20260908.png" aria-label="บรรยากาศสถานตรวจสภาพรถ หนุ่มคุณภาพ">
+            <source src="assets/station-drizzle-20260927.mp4" type="video/mp4" />
+          </video>
+          <a class="hero-start" href="#services">เริ่มเลย</a>
         </div>
       </section>
 
@@ -109,11 +105,11 @@
       <a href="#eligibility"><span>◷</span>เกณฑ์อายุ</a>
       <a href="#faq"><span>?</span>คำถาม</a>
     </nav>
-    <footer><a class="brand" href="#top"><img class="brand-mark" src="assets/tro-logo.jpg" alt="ตรอ.คุณภาพ" /><span>ตรอ.<span class="brand-dot">คุณภาพ</span></span></a><p>เบอร์โทรร้องเรียน<br /><a href="tel:0944724605" aria-label="โทรร้องเรียน 094-472-4605"><strong>📞 094-472-4605</strong></a></p><a class="footer-top" href="#top">กลับด้านบน ↑</a><small>© ตรอ.คุณภาพ · สถานตรวจสภาพรถเอกชน</small></footer>
+    <footer><a class="brand" href="#top"><span>ตรอ.<span class="brand-dot">คุณภาพ</span></span></a><p>เบอร์โทรร้องเรียน<br /><a href="tel:0944724605" aria-label="โทรร้องเรียน 094-472-4605"><strong>📞 094-472-4605</strong></a></p><a class="footer-top" href="#top">กลับด้านบน ↑</a><small>© ตรอ.คุณภาพ · สถานตรวจสภาพรถเอกชน</small></footer>
     <dialog id="poster-dialog" aria-labelledby="poster-title">
       <div class="poster-toolbar"><strong id="poster-title">ดูรูปขนาดใหญ่</strong><button type="button" id="poster-close" aria-label="ปิดรูป">ปิด ×</button></div>
       <div class="poster-scroll"><img id="poster-full" alt="" /></div>
     </dialog>
-    <script src="script.js?v=scroll-reveal-900-20260925"></script>
+    <script src="script.js?v=video-hero-20260927"></script>
   </body>
 </html>

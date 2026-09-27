@@ -109,6 +109,36 @@ footer p{grid-column:2/-1;grid-row:1;justify-self:end;text-align:right}footer .f
 @media(max-width:760px){.check-content{padding:24px 20px}.check-list{grid-template-columns:1fr;margin-top:20px}.check-list li{font-size:17px;padding:16px 0}}
 .branch-card{container-type:inline-size}.branch-card h3{margin-bottom:20px;overflow-wrap:normal;white-space:nowrap;font-size:16px;font-size:clamp(13px,5.8cqi,18px);letter-spacing:-.2px;line-height:1.6}
 .eligibility.eligibility-poster{grid-template-columns:minmax(0,1fr);gap:24px}.vehicle-age-poster{display:block;border-radius:20px;overflow:hidden}.vehicle-age-poster img{display:block;width:100%;height:auto}
+/* Centered, full-width first viewport with the customer's station video. */
+main > .hero-cinema{display:block;max-width:none;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:0;background:#fff;overflow:hidden}
+.hero-cinema .hero-copy{position:relative;z-index:1;text-align:center;max-width:1200px;margin:0 auto;padding:54px 24px 30px}
+.hero-cinema h1{font-size:clamp(36px,4.5vw,64px);line-height:1.45;letter-spacing:-1.4px;margin:0 0 18px}
+.hero-cinema .hero-title-line{color:var(--ink);white-space:nowrap}
+.hero-cinema .hero-text{max-width:760px;margin:0 auto 26px;font-size:18px;line-height:1.8;color:#322c39}
+.hero-cinema .hero-actions{justify-content:center;gap:14px}
+.hero-cinema .button{width:auto;border-radius:999px;min-height:54px;padding:13px 26px}
+.hero-film{position:relative;background:var(--soft)}
+.hero-film::after{content:"";position:absolute;inset:0 0 auto;height:32px;background:linear-gradient(#fff,transparent);pointer-events:none}
+.hero-film video{display:block;width:100%;height:clamp(360px,44vw,640px);object-fit:cover;object-position:center 15%}
+.hero-video-toggle{position:absolute;z-index:2;left:max(24px,5vw);bottom:24px;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:10px 18px;border:1px solid #ffffffaa;border-radius:999px;background:#fffffff2;color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 12px #0002}
+.hero-video-toggle[hidden]{display:none}.hero-video-toggle:focus-visible{outline:3px solid var(--purple);outline-offset:4px}
+@media(max-width:760px){.hero-cinema .hero-copy{padding:32px 20px 26px}.hero-cinema h1{font-size:clamp(30px,7.5vw,48px);letter-spacing:-.8px}.hero-cinema .hero-title-line{display:block}.hero-cinema .hero-text{font-size:15px;max-width:480px;margin-bottom:22px}.hero-cinema .hero-actions{gap:10px}.hero-cinema .button{font-size:13px;padding:12px 16px;gap:8px;min-height:48px}.hero-film video{height:auto;aspect-ratio:16/9;object-fit:contain}.hero-film::after{height:16px}.hero-video-toggle{left:12px;bottom:12px;font-size:12px;padding:8px 12px}}
+/* One centered entry action over an edge-to-edge video. */
+.hero-cinema .hero-film{height:calc(100svh - 140px);min-height:360px}
+.hero-cinema .hero-film::after{display:none}
+.hero-cinema .hero-film video{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-start{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;min-width:160px;min-height:58px;padding:14px 40px;border-radius:999px;background:var(--purple);color:#fff;font-size:20px;font-weight:700;box-shadow:0 6px 28px #0003;border:1px solid #ffffff80}
+.hero-start{background:var(--soft);color:var(--purple);border:1px solid var(--purple);border-radius:14px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
+.hero-start:hover{background:#e6d9f4}.hero-start:focus-visible{outline:3px solid #fff;outline-offset:5px}
+@media(max-width:760px){.hero-cinema .hero-film{height:calc(100svh - 128px);min-height:360px}.hero-start{font-size:18px;min-height:56px}}
+/* Transparent navigation over the opening video; readable surface after entry. */
+body .site-header{position:fixed;left:0;right:0;width:100%;height:88px}
+body.at-intro .site-header{background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+body.at-intro .site-header .brand,body.at-intro .main-nav>a{text-shadow:0 1px 6px #ffffffb3}
+body.at-intro .menu-toggle{background:transparent;border:0;box-shadow:none}
+@media(max-width:760px){body .site-header{height:76px}}
+body.at-intro .contact-social,body.at-intro .mobile-dock{visibility:hidden;pointer-events:none}
+body .hero-cinema .hero-film{height:100svh;min-height:360px}
 /* Compact single-line caption over the full station photo. */
 .hero-visual{height:auto;background:var(--soft);display:block}.hero-photo{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:contain;background:none}.hero-visual .inspection-card{position:absolute;inset:auto 16px 16px;margin:0;padding:16px 12px;gap:10px;justify-content:center;border:1px solid #ffffffcc;border-radius:20px;background:#fffffff0}
 .inspection-card .card-icon{display:grid;flex-shrink:0;width:28px;height:28px;font-size:18px}.station-caption{display:flex;align-items:center;gap:8px;min-width:0;line-height:1.5;white-space:nowrap}.inspection-card .station-name{font-size:16px;font-weight:800;color:var(--purple)}.inspection-card .station-tagline{margin:0;font-size:16px;font-weight:700}
