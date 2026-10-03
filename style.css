@@ -198,11 +198,11 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
 }
 /* Full-screen mobile directory in the station's purple and gold palette. */
 @media(max-width:760px){
-  body .site-header .main-nav,body .site-header .main-nav.open{inset:0;width:100%;max-width:none;background:#f1eaf8;padding:112px 28px max(32px,env(safe-area-inset-bottom));gap:0;transform:translate3d(0,-12px,0);opacity:0;pointer-events:none;transition:opacity .4s ease,transform .55s cubic-bezier(.22,1,.36,1),visibility 0s linear .55s}
-  body .site-header .main-nav.open{transform:translate3d(0,0,0);opacity:1;visibility:visible;pointer-events:auto;transition:opacity .5s ease,transform .65s cubic-bezier(.22,1,.36,1),visibility 0s}
+  body .site-header .main-nav,body .site-header .main-nav.open{inset:0;width:100%;max-width:none;background:#f1eaf8;padding:112px 28px max(32px,env(safe-area-inset-bottom));gap:0;transform:translate3d(0,-12px,0);opacity:0;pointer-events:none;transition:opacity .5s ease,transform .65s cubic-bezier(.22,1,.36,1),visibility 0s linear .65s}
+  body .site-header .main-nav.open{transform:translate3d(0,0,0);opacity:1;visibility:visible;pointer-events:auto;transition:opacity .65s ease,transform .8s cubic-bezier(.22,1,.36,1),visibility 0s}
   body .site-header .main-nav a{display:flex;align-items:center;gap:18px;text-align:left;color:#39234f;font-size:clamp(22px,6vw,30px);font-weight:600;padding:24px 0;border-bottom:1px solid #dacde6;line-height:1.45;opacity:0;transform:translate3d(0,12px,0);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1)}
   body .site-header .main-nav a::before{content:none}
-  body .site-header .main-nav.open a{opacity:1;transform:translate3d(0,0,0);transition-duration:.45s,.6s;transition-delay:.08s}
+  body .site-header .main-nav.open a{opacity:1;transform:translate3d(0,0,0);transition-duration:.55s,.75s;transition-delay:.08s}
   body .site-header .main-nav.open a:nth-child(2){transition-delay:.13s}
   body .site-header .main-nav.open a:nth-child(3){transition-delay:.18s}
   body .site-header .main-nav.open a:nth-child(4){transition-delay:.23s}
