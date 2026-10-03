@@ -1,3 +1,28 @@
+// Local, code-drawn fallback icons: no extra image request can fail again.
+(() => {
+  const icons = {
+    'branch-phone-icon': '<path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a15 15 0 0 1-7-7l2-2-2-5Z"/>',
+    'branch-map-icon': '<path d="m5 8 2-4h10l2 4M4 8h16v10H4zM6 18v2m12-2v2M7 12h1m8 0h1"/>',
+    'location-pin-icon': '<path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/>',
+    'hours-icon': '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>'
+  };
+  Object.entries(icons).forEach(([className, drawing]) => {
+    document.querySelectorAll(`img.${className}`).forEach(img => {
+      const fallback = () => {
+        if (!img.isConnected) return;
+        const icon = document.createElement('span');
+        icon.className = `${className} image-icon-fallback`;
+        icon.setAttribute('aria-hidden', 'true');
+        icon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">${drawing}</svg>`;
+        img.replaceWith(icon);
+      };
+      img.addEventListener('error', fallback, { once: true });
+      // Covers cached failures that occurred before this script was loaded.
+      if (img.complete && img.naturalWidth === 0) fallback();
+    });
+  });
+})();
+
 // Wait briefly for Thai fonts, with a one-second limit before revealing text.
 (() => {
   const allowed = matchMedia('(max-width: 760px) and (prefers-reduced-motion: no-preference)');
