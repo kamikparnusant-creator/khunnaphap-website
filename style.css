@@ -170,6 +170,12 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
 #age-form > button[type="submit"]{width:auto;justify-self:start;justify-content:center;min-height:48px;padding:12px 20px}
 .branch-phone .branch-phone-icon{display:block;width:32px;height:32px;flex-shrink:0;object-fit:contain;border-radius:7px}
 .mobile-welcome{display:none}
+@media(max-width:760px) and (prefers-reduced-motion:no-preference){
+  .mobile-welcome h1,.mobile-welcome p{animation:welcome-appear .9s cubic-bezier(.2,.65,.3,1) both}
+  .mobile-welcome h1{animation-delay:.1s}
+  .mobile-welcome p{animation-delay:.35s}
+}
+@keyframes welcome-appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:760px){
   body .hero-cinema .hero-film{background:#f1eaf8}
   .hero-cinema .hero-film video,.hero-cinema .hero-start{display:none}
