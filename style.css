@@ -201,7 +201,7 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
   body .site-header .main-nav,body .site-header .main-nav.open{inset:0;width:100%;max-width:none;background:#f1eaf8;padding:112px 28px max(32px,env(safe-area-inset-bottom));gap:0;counter-reset:menu-item;transform:translateY(-18px);opacity:0;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.65,.3,1),visibility .45s}
   body .site-header .main-nav.open{transform:translateY(0);opacity:1;visibility:visible}
   body .site-header .main-nav a{display:flex;align-items:center;gap:18px;text-align:left;color:#39234f;font-size:clamp(22px,6vw,30px);font-weight:600;padding:24px 0;border-bottom:1px solid #dacde6;line-height:1.45;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
-  body .site-header .main-nav a::before{counter-increment:menu-item;content:'0' counter(menu-item);font-size:12px;letter-spacing:1px;color:#80621c;font-weight:600;flex:none}
+  body .site-header .main-nav a::before{content:none}
   body .site-header .main-nav.open a{opacity:1;transform:translateY(0);transition-delay:.12s}
   body .site-header .main-nav.open a:nth-child(2){transition-delay:.18s}
   body .site-header .main-nav.open a:nth-child(3){transition-delay:.24s}
