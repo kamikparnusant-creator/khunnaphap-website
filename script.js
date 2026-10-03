@@ -1,3 +1,34 @@
+// Wait briefly for Thai fonts, with a one-second limit before revealing text.
+(() => {
+  const allowed = matchMedia('(max-width: 760px) and (prefers-reduced-motion: no-preference)');
+  if (!allowed.matches) return;
+  const root = document.documentElement;
+  root.classList.add('welcome-pending');
+  let revealed = false;
+  const reveal = () => {
+    if (revealed) return;
+    revealed = true;
+    root.classList.remove('welcome-pending');
+    if (allowed.matches) root.classList.add('welcome-ready');
+  };
+  const timeout = setTimeout(reveal, 1000);
+  const fonts = document.fonts ? Promise.all([
+    document.fonts.load('600 44px "Noto Sans Thai"', 'ตรอ.คุณภาพ'),
+    document.fonts.load('400 20px "Noto Sans Thai"', 'ยินดีให้บริการ')
+  ]) : Promise.resolve();
+  fonts.catch(() => {}).then(() => {
+    clearTimeout(timeout);
+    reveal();
+  });
+  allowed.addEventListener('change', () => {
+    if (!allowed.matches) {
+      clearTimeout(timeout);
+      reveal();
+      root.classList.remove('welcome-ready');
+    }
+  });
+})();
+
 // Start at the top on entry; keep section links working after the page opens.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (location.hash) {

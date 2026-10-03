@@ -171,9 +171,10 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
 .branch-phone .branch-phone-icon{display:block;width:32px;height:32px;flex-shrink:0;object-fit:contain;border-radius:7px}
 .mobile-welcome{display:none}
 @media(max-width:760px) and (prefers-reduced-motion:no-preference){
-  .mobile-welcome h1,.mobile-welcome p{animation:welcome-appear .9s cubic-bezier(.2,.65,.3,1) both}
-  .mobile-welcome h1{animation-delay:.1s}
-  .mobile-welcome p{animation-delay:.35s}
+  .welcome-pending .mobile-welcome h1,.welcome-pending .mobile-welcome p{opacity:0}
+  .welcome-ready .mobile-welcome h1,.welcome-ready .mobile-welcome p{animation:welcome-appear .9s cubic-bezier(.2,.65,.3,1) both}
+  .welcome-ready .mobile-welcome h1{animation-delay:0s}
+  .welcome-ready .mobile-welcome p{animation-delay:.25s}
 }
 @keyframes welcome-appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:760px){
