@@ -213,6 +213,10 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
   body.menu-open .mobile-dock{visibility:hidden}
 }
 @media(prefers-reduced-motion:reduce){body .site-header .main-nav,body .site-header .main-nav a{transition:none}}
+.faq-jump{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;margin-bottom:12px;background:white;border:1px solid var(--line);border-radius:18px;font-size:17px;font-weight:600}
+.faq-jump span{color:var(--purple);font-size:24px;flex:none}
+.faq-jump:hover{background:var(--soft);border-color:#b393d7}
+@media(max-width:760px){.faq-jump{padding:18px;font-size:16px;gap:12px}}
 /* Compact single-line caption over the full station photo. */
 .hero-visual{height:auto;background:var(--soft);display:block}.hero-photo{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:contain;background:none}.hero-visual .inspection-card{position:absolute;inset:auto 16px 16px;margin:0;padding:16px 12px;gap:10px;justify-content:center;border:1px solid #ffffffcc;border-radius:20px;background:#fffffff0}
 .inspection-card .card-icon{display:grid;flex-shrink:0;width:28px;height:28px;font-size:18px}.station-caption{display:flex;align-items:center;gap:8px;min-width:0;line-height:1.5;white-space:nowrap}.inspection-card .station-name{font-size:16px;font-weight:800;color:var(--purple)}.inspection-card .station-tagline{margin:0;font-size:16px;font-weight:700}
