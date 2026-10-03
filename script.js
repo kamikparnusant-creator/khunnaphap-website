@@ -50,12 +50,18 @@ const menu = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
 menu?.addEventListener('click', () => {
   const open = nav.classList.toggle('open');
+  document.body.classList.toggle('menu-open', open);
+  document.querySelector('main').inert = open;
+  document.querySelector('footer').inert = open;
   menu.setAttribute('aria-expanded', open);
   menu.setAttribute('aria-label', open ? 'ปิดเมนู' : 'เปิดเมนู');
   menu.textContent = open ? '×' : '☰';
 });
 document.querySelectorAll('.main-nav a').forEach(link => link.addEventListener('click', () => {
   nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); menu.textContent = '☰';
+  document.body.classList.remove('menu-open');
+  document.querySelector('main').inert = false;
+  document.querySelector('footer').inert = false;
   menu.setAttribute('aria-label', 'เปิดเมนู');
 }));
 document.addEventListener('keydown', event => {
@@ -68,6 +74,9 @@ document.addEventListener('click', event => {
   if (nav.classList.contains('open') && !nav.contains(event.target) && !menu.contains(event.target)) menu.click();
 });
 const shortcuts = document.querySelectorAll('.mobile-dock a');
+matchMedia('(max-width:760px)').addEventListener('change', event => {
+  if (!event.matches && nav.classList.contains('open')) menu.click();
+});
 function updateShortcut() {
   const current = location.hash || '#top';
   shortcuts.forEach(link => {
