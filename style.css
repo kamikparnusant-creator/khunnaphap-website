@@ -180,11 +180,11 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
 }
 @keyframes welcome-appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:760px){
-  body .hero-cinema .hero-film{background:#f1eaf8}
+  body .hero-cinema .hero-film{background:#f1eaf8;height:100dvh}
   .hero-cinema .hero-film video{display:none}
-  .mobile-welcome{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:24px}
-  .hero-cinema .mobile-welcome h1{color:#60339b;font-size:clamp(38px,11vw,68px);font-weight:600;letter-spacing:-1px;margin:0 0 10px;line-height:1.4}
-  .mobile-welcome p{font-size:20px;letter-spacing:2px;margin:0;color:#4b365f}
+  .mobile-welcome{position:absolute;inset:0;display:grid;grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);justify-items:center;text-align:center;color:#fff;padding:24px}
+  .hero-cinema .mobile-welcome h1{grid-row:2;color:#60339b;font-size:clamp(38px,11vw,68px);font-weight:600;letter-spacing:-1px;margin:0;line-height:1.4}
+  .mobile-welcome p{grid-row:3;align-self:start;font-size:20px;letter-spacing:2px;margin:10px 0 0;color:#4b365f}
   body.at-intro .site-header .brand{color:var(--ink);font-size:21px;text-shadow:none}
   body.at-intro .site-header .brand-dot{color:var(--purple)}
   body .site-header .menu-toggle{position:relative;z-index:22;width:44px;height:44px;border:1px solid #d9c8e9;border-radius:10px;background:#e7daf3;color:#60339b;font-size:26px}
