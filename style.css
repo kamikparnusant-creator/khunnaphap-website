@@ -182,7 +182,7 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
 @media(max-width:760px){
   body .hero-cinema .hero-film{background:#f1eaf8;height:100dvh}
   .hero-cinema .hero-film video{display:none}
-  .mobile-welcome{position:absolute;inset:0;display:grid;grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);justify-items:center;text-align:center;color:#fff;padding:24px}
+  .mobile-welcome{position:absolute;inset:0;display:grid;grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);justify-items:center;text-align:center;color:#fff;padding:24px;transform:translateY(calc(-1 * clamp(24px,4dvh,40px)))}
   .hero-cinema .mobile-welcome h1{grid-row:2;color:#60339b;font-size:clamp(38px,11vw,68px);font-weight:600;letter-spacing:-1px;margin:0;line-height:1.4}
   .mobile-welcome p{grid-row:3;align-self:start;font-size:20px;letter-spacing:2px;margin:10px 0 0;color:#4b365f}
   body.at-intro .site-header .brand{color:var(--ink);font-size:21px;text-shadow:none}
