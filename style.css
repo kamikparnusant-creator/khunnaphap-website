@@ -135,7 +135,7 @@ main > .hero-cinema{display:block;max-width:none;width:100vw;margin-left:calc(50
 @media(max-width:760px){.hero-cinema .hero-film{height:calc(100svh - 128px);min-height:360px}.hero-start{font-size:18px;min-height:56px}}
 /* Transparent navigation over the opening video; readable surface after entry. */
 body .site-header{position:fixed;left:0;right:0;width:100%;height:88px}
-body.at-intro .site-header{background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+body.at-intro .site-header{display:none}
 body.at-intro .site-header .brand,body.at-intro .main-nav>a{text-shadow:0 1px 6px #ffffffb3}
 body.at-intro .menu-toggle{background:transparent;border:0;box-shadow:none}
 @media(max-width:760px){body .site-header{height:76px}}
