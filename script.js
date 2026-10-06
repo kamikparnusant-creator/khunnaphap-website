@@ -314,12 +314,14 @@ setupScrollReveal();
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   document.documentElement.classList.add('view-navigation');
   heading.tabIndex = -1;
-  let activeIntro = !location.hash || location.hash === '#top';
+  // Every fresh visit or reload starts at the welcome screen, including old section URLs.
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  let activeIntro = true;
   let desiredIntro = activeIntro;
   let changing = false;
   body.classList.toggle('at-intro', activeIntro);
-  if (activeIntro) window.scrollTo({ top: 0, behavior: 'instant' });
-  else requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'instant' }));
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  updateShortcut();
 
   const fade = async (from, to, duration) => {
     if (motion.matches || !body.animate) return;
