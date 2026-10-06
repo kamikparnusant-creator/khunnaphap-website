@@ -54,22 +54,8 @@
   });
 })();
 
-// Start at the top on entry; keep section links working after the page opens.
+// View changes manage their own scroll position.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-if (location.hash) {
-  try {
-    history.replaceState(history.state, '', location.pathname + location.search);
-  } catch {
-    location.hash = 'top';
-  }
-}
-function startAtTop() {
-  if (!location.hash || location.hash === '#top') {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }
-}
-startAtTop();
-window.addEventListener('pageshow', startAtTop, { once: true });
 
 const menu = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
@@ -320,15 +306,76 @@ function setupScrollReveal() {
 }
 setupScrollReveal();
 
-// Autoplay stays silent; reduced-motion and data-saving users get the poster.
+// Two separate views with a fade between them; section links still work inside services.
 (() => {
-  const hero = document.querySelector('.hero-cinema');
-  if (!hero) return;
-  const update = () => document.body.classList.toggle('at-intro', hero.getBoundingClientRect().bottom > 160);
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
+  const body = document.body;
+  const start = document.querySelector('.hero-start');
+  const heading = document.querySelector('#services h2');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  document.documentElement.classList.add('view-navigation');
+  heading.tabIndex = -1;
+  let activeIntro = !location.hash || location.hash === '#top';
+  let desiredIntro = activeIntro;
+  let changing = false;
+  body.classList.toggle('at-intro', activeIntro);
+  if (activeIntro) window.scrollTo({ top: 0, behavior: 'instant' });
+  else requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'instant' }));
+
+  const fade = async (from, to, duration) => {
+    if (motion.matches || !body.animate) return;
+    const animation = body.animate([{ opacity: from }, { opacity: to }], {
+      duration, easing: 'ease-in-out', fill: 'forwards'
+    });
+    await animation.finished.catch(() => {});
+    animation.cancel();
+  };
+  const changeView = async () => {
+    if (changing) return;
+    changing = true;
+    if (nav.classList.contains('open')) menu.click();
+    body.inert = true;
+    body.classList.add('view-changing');
+    try {
+      while (activeIntro !== desiredIntro) {
+        await fade(1, 0, 300);
+        activeIntro = desiredIntro;
+        body.classList.toggle('at-intro', activeIntro);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        const video = document.querySelector('#hero-video');
+        if (!activeIntro) video?.pause();
+        else if (!motion.matches && matchMedia('(min-width:761px)').matches && !navigator.connection?.saveData) video?.play().catch(() => {});
+        await fade(0, 1, 500);
+      }
+    } finally {
+      body.inert = false;
+      body.classList.remove('view-changing');
+      changing = false;
+      (activeIntro ? start : heading).focus({ preventScroll: true });
+    }
+  };
+  start.addEventListener('click', event => {
+    event.preventDefault();
+    if (changing) return;
+    history.pushState(null, '', '#services');
+    updateShortcut();
+    desiredIntro = false;
+    changeView();
+  });
+  document.querySelectorAll('a[href="#top"]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    if (changing || activeIntro) return;
+    history.pushState(null, '', '#top');
+    updateShortcut();
+    desiredIntro = true;
+    changeView();
+  }));
+  window.addEventListener('hashchange', () => {
+    desiredIntro = !location.hash || location.hash === '#top';
+    if (activeIntro !== desiredIntro) changeView();
+  });
 })();
+
+// Autoplay stays silent; reduced-motion and data-saving users get the poster.
 
 (() => {
   const video = document.getElementById('hero-video');
@@ -338,14 +385,14 @@ setupScrollReveal();
   let wantsPlayback = !motion.matches && !navigator.connection?.saveData && !mobileHero.matches;
   mobileHero.addEventListener('change', () => {
     wantsPlayback = !mobileHero.matches && !motion.matches && !navigator.connection?.saveData;
-    if (wantsPlayback && !document.hidden) play(); else video.pause();
+    if (wantsPlayback && !document.hidden && document.body.classList.contains('at-intro')) play(); else video.pause();
   });
   const play = () => { video.muted = true; video.play().catch(() => {}); };
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) video.pause(); else if (wantsPlayback) play();
+    if (document.hidden) video.pause(); else if (wantsPlayback && document.body.classList.contains('at-intro')) play();
   });
   motion.addEventListener('change', () => {
     if (motion.matches) { wantsPlayback = false; video.pause(); }
   });
-  if (wantsPlayback) play();
+  if (wantsPlayback && document.body.classList.contains('at-intro')) play();
 })();

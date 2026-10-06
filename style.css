@@ -221,3 +221,14 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
 .hero-visual{height:auto;background:var(--soft);display:block}.hero-photo{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:contain;background:none}.hero-visual .inspection-card{position:absolute;inset:auto 16px 16px;margin:0;padding:16px 12px;gap:10px;justify-content:center;border:1px solid #ffffffcc;border-radius:20px;background:#fffffff0}
 .inspection-card .card-icon{display:grid;flex-shrink:0;width:28px;height:28px;font-size:18px}.station-caption{display:flex;align-items:center;gap:8px;min-width:0;line-height:1.5;white-space:nowrap}.inspection-card .station-name{font-size:16px;font-weight:800;color:var(--purple)}.inspection-card .station-tagline{margin:0;font-size:16px;font-weight:700}
 @media(max-width:420px){.hero-visual .inspection-card{inset:auto 8px 8px;padding:12px 6px;gap:6px;border-radius:16px}.inspection-card .card-icon{width:22px;height:22px;font-size:15px}.station-caption{gap:5px}.inspection-card .station-name,.inspection-card .station-tagline{font-size:14px}}
+
+/* Opening and service screens occupy separate views instead of one scrolling page. */
+.view-navigation body.at-intro{overflow:hidden;padding-bottom:0}
+.view-navigation body.at-intro main> :not(.hero-cinema),
+.view-navigation body.at-intro .contact-footer,
+.view-navigation body.at-intro .mobile-dock{display:none}
+.view-navigation body:not(.at-intro) .hero-cinema{display:none}
+.view-navigation body:not(.at-intro) main{padding-top:88px}
+.view-navigation body.view-changing{overflow:hidden;pointer-events:none}
+.view-navigation #services h2:focus{outline:none}
+@media(max-width:760px){.view-navigation body:not(.at-intro) main{padding-top:76px}}
