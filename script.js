@@ -296,7 +296,8 @@ function setupScrollReveal() {
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (motion.matches || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
   const targets = document.querySelectorAll(
-    'main h2:not(#contact-title), .services-list > li, .steps > article, .age-tool, .vehicle-age-poster, .guide-alert, .faq-jump, .faq details, .branch-hours, .branch-finder, .branch-card'
+    // Only things people can tap/click; static text, cards and pictures stay still.
+    '.faq-jump, .faq details, .branch-card'
   );
   const running = new Set();
   const observer = new IntersectionObserver(entries => {

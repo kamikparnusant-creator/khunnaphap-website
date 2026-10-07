@@ -250,13 +250,11 @@ body.is-scrolled .site-header{box-shadow:0 6px 24px #2d213e14;border-bottom-colo
 .button-dark,.branch-phone{background:linear-gradient(135deg,#8352c4,#6b3aa9)}
 .button,.branch-phone,.branch-map,.hero-start,.social-links a,.poster-toolbar button{transition:transform .3s var(--ease-out),box-shadow .3s var(--ease-out),background-color .2s ease,border-color .2s ease}
 .button:active,.branch-phone:active,.branch-map:active,.hero-start:active,.social-links a:active{transform:scale(.97);transition-duration:.1s}
-.vehicle-age-poster{box-shadow:var(--shadow-sm)}.vehicle-age-poster img{transition:transform .8s var(--ease-out)}
+.vehicle-age-poster{box-shadow:var(--shadow-sm)}
 @media(hover:hover) and (pointer:fine){
-  .services-list li:hover,.steps article:hover,.branch-card:hover,.faq details:hover,.faq-jump:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:#d6c3ec}
-  .services-list li:hover .service-check{transform:scale(1.08) rotate(-6deg)}
+  .branch-card:hover,.faq details:hover,.faq-jump:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:#d6c3ec}
   .button:hover,.branch-phone:hover,.branch-map:hover,.social-links a:hover{transform:translateY(-2px)}
   .button-dark:hover,.branch-phone:hover{background:linear-gradient(135deg,#7645b5,#5a2e93);box-shadow:0 12px 28px #7645b540}
-  .vehicle-age-poster:hover{box-shadow:var(--shadow-md)}.vehicle-age-poster:hover img{transform:scale(1.015)}
   .hero-start:hover{transform:translateX(-50%) translateY(-3px)}
 }
 .hero-start{background:#f8f4eae6;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
