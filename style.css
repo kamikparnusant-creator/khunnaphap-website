@@ -231,3 +231,50 @@ main>.contact-social{flex-direction:column;gap:10px;padding-top:14px;padding-bot
 .view-navigation #services h2:focus{outline:none}
 @media(max-width:760px){.view-navigation body:not(.at-intro) main{padding-top:76px}}
 #tax-calculator-link{justify-content:center;text-align:center;gap:10px}#tax-calculator-link img{display:block;flex-shrink:0;border-radius:8px}
+
+/* Modern polish: softer surfaces, smooth hover/press feedback and animated disclosures. */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--shadow-sm:0 1px 2px #2d213e0a,0 4px 14px #2d213e0d;--shadow-md:0 2px 6px #2d213e0d,0 16px 36px #4b2a7a1f;interpolate-size:allow-keywords}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:#dcc8f2;color:#2d213e}
+
+.site-header{transition:box-shadow .35s var(--ease-out),background-color .35s var(--ease-out)}
+@media(min-width:761px){body .site-header{background:#fcfafcd9;-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px)}}
+body.is-scrolled .site-header{box-shadow:0 6px 24px #2d213e14;border-bottom-color:transparent}
+.main-nav a{transition:background-color .2s ease,color .2s ease}
+.section-kicker{display:inline-flex;padding:4px 14px;border-radius:999px;background:var(--soft);letter-spacing:.2px}
+.services-list li,.steps article,.branch-card,.faq details,.faq-jump,.age-tool,.branch-finder,.branch-hours,.vehicle-age-poster{transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out),border-color .3s ease,background-color .3s ease}
+.services-list li,.age-tool,.faq details,.faq-jump{box-shadow:var(--shadow-sm)}
+.services-list li{background:linear-gradient(180deg,#fff,#fdfbff)}
+.service-check{background:linear-gradient(135deg,#efe4fb,#e3d3f5);transition:transform .45s var(--ease-out)}
+.steps article>span{background:linear-gradient(135deg,#8a56cf,#6a3aa8);box-shadow:0 6px 16px #7645b53d}
+.button-dark,.branch-phone{background:linear-gradient(135deg,#8352c4,#6b3aa9)}
+.button,.branch-phone,.branch-map,.hero-start,.social-links a,.poster-toolbar button{transition:transform .3s var(--ease-out),box-shadow .3s var(--ease-out),background-color .2s ease,border-color .2s ease}
+.button:active,.branch-phone:active,.branch-map:active,.hero-start:active,.social-links a:active{transform:scale(.97);transition-duration:.1s}
+.vehicle-age-poster{box-shadow:var(--shadow-sm)}.vehicle-age-poster img{transition:transform .8s var(--ease-out)}
+@media(hover:hover) and (pointer:fine){
+  .services-list li:hover,.steps article:hover,.branch-card:hover,.faq details:hover,.faq-jump:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:#d6c3ec}
+  .services-list li:hover .service-check{transform:scale(1.08) rotate(-6deg)}
+  .button:hover,.branch-phone:hover,.branch-map:hover,.social-links a:hover{transform:translateY(-2px)}
+  .button-dark:hover,.branch-phone:hover{background:linear-gradient(135deg,#7645b5,#5a2e93);box-shadow:0 12px 28px #7645b540}
+  .vehicle-age-poster:hover{box-shadow:var(--shadow-md)}.vehicle-age-poster:hover img{transform:scale(1.015)}
+  .hero-start:hover{transform:translateX(-50%) translateY(-3px)}
+}
+.hero-start{background:#f8f4eae6;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.hero-start:active{transform:translateX(-50%) scale(.97)}
+.hero-cinema .hero-film::before{content:"";position:absolute;inset:auto 0 0;height:38%;z-index:1;background:linear-gradient(transparent,#1a10282e);pointer-events:none}
+.faq summary b,.faq-jump span{transition:transform .35s var(--ease-out)}
+.faq details::details-content{block-size:0;overflow:hidden;opacity:0;transition:block-size .4s var(--ease-out),opacity .3s ease,content-visibility .4s allow-discrete}
+.faq details[open]::details-content{block-size:auto;opacity:1}
+.branch-toggle::after{transition:transform .35s var(--ease-out)}
+.branch-toggle[aria-expanded=true]::after{transform:rotate(180deg)}
+.branch-card.selected-branch{border-color:#cdb5ea;box-shadow:var(--shadow-md)}
+#poster-dialog[open]{animation:dialog-in .35s var(--ease-out)}
+#poster-dialog[open]::backdrop{animation:backdrop-in .35s ease;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+@keyframes dialog-in{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes backdrop-in{from{opacity:0}to{opacity:1}}
+#opening-status{font-weight:600}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after,::details-content{animation:none!important;transition:none!important}.services-list li:hover,.steps article:hover,.branch-card:hover,.faq details:hover,.faq-jump:hover,.button:hover{transform:none}}
+::view-transition-old(root){animation:.28s ease-in both vt-out}
+::view-transition-new(root){animation:.5s cubic-bezier(.22,1,.36,1) both vt-in}
+@keyframes vt-out{to{opacity:0;transform:scale(.985)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(14px)}}

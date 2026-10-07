@@ -157,14 +157,40 @@ branchCards.forEach((card, index) => {
   card.replaceChildren(header, panel);
   card.classList.add('branch-accordion');
   toggle.addEventListener('click', () => {
-    selectContactBranch(toggle.getAttribute('aria-expanded') === 'true' ? -1 : index);
+    selectContactBranch(toggle.getAttribute('aria-expanded') === 'true' ? -1 : index, true);
   });
 });
-function selectContactBranch(index) {
+const panelMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function slidePanel(panel, open) {
+  panel.slideAnimation?.cancel();
+  if (panel.hidden === !open) return;
+  if (panelMotion.matches || !panel.animate) { panel.hidden = !open; return; }
+  panel.hidden = false;
+  const style = getComputedStyle(panel);
+  const full = { height: panel.offsetHeight + 'px', paddingTop: style.paddingTop, paddingBottom: style.paddingBottom, opacity: 1 };
+  const closed = { height: '0px', paddingTop: '0px', paddingBottom: '0px', opacity: 0 };
+  panel.style.overflow = 'hidden';
+  const animation = panel.animate(open ? [closed, full] : [full, closed], {
+    duration: open ? 420 : 300, easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
+  });
+  panel.slideAnimation = animation;
+  animation.onfinish = () => {
+    panel.style.overflow = '';
+    panel.hidden = !open;
+    panel.slideAnimation = null;
+  };
+  animation.oncancel = () => { panel.style.overflow = ''; };
+}
+function selectContactBranch(index, animate = false) {
   branchCards.forEach((item, i) => {
     item.classList.toggle('selected-branch', i === index);
     item.querySelector('.branch-toggle').setAttribute('aria-expanded', String(i === index));
-    item.querySelector('.branch-detail').hidden = i !== index;
+    const panel = item.querySelector('.branch-detail');
+    if (animate) slidePanel(panel, i === index);
+    else {
+      panel.slideAnimation?.cancel();
+      panel.hidden = i !== index;
+    }
   });
 }
 function resetBranches() {
@@ -270,19 +296,21 @@ function setupScrollReveal() {
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (motion.matches || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
   const targets = document.querySelectorAll(
-    'main h2:not(#contact-title), .services-list > li, .steps > article, .branch-row h3'
+    'main h2:not(#contact-title), .services-list > li, .steps > article, .age-tool, .vehicle-age-poster, .guide-alert, .faq-jump, .faq details, .branch-hours, .branch-finder, .branch-card'
   );
   const running = new Set();
   const observer = new IntersectionObserver(entries => {
+    let batch = 0;
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       observer.unobserve(entry.target);
       entry.target.dataset.scrollRevealed = 'true';
       if (motion.matches) return;
+      // Items arriving together appear one after another.
       const animation = entry.target.animate([
-        { opacity: 0.25, transform: 'translateY(14px)' },
+        { opacity: 0, transform: 'translateY(22px)' },
         { opacity: 1, transform: 'translateY(0)' }
-      ], { duration: 900, easing: 'cubic-bezier(0.2, 0.65, 0.3, 1)' });
+      ], { duration: 750, delay: Math.min(batch++, 5) * 70, fill: 'backwards', easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
       running.add(animation);
       animation.onfinish = animation.oncancel = () => running.delete(animation);
     });
@@ -339,14 +367,23 @@ setupScrollReveal();
     body.classList.add('view-changing');
     try {
       while (activeIntro !== desiredIntro) {
-        await fade(1, 0, 300);
-        activeIntro = desiredIntro;
-        body.classList.toggle('at-intro', activeIntro);
-        window.scrollTo({ top: 0, behavior: 'instant' });
-        const video = document.querySelector('#hero-video');
-        if (!activeIntro) video?.pause();
-        else if (!motion.matches && matchMedia('(min-width:761px)').matches && !navigator.connection?.saveData) video?.play().catch(() => {});
-        await fade(0, 1, 500);
+        const swap = () => {
+          activeIntro = desiredIntro;
+          body.classList.toggle('at-intro', activeIntro);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+          const video = document.querySelector('#hero-video');
+          if (!activeIntro) video?.pause();
+          else if (!motion.matches && matchMedia('(min-width:761px)').matches && !navigator.connection?.saveData) video?.play().catch(() => {});
+        };
+        if (document.startViewTransition && !motion.matches) {
+          const transition = document.startViewTransition(swap);
+          transition.ready.catch(() => {}); // Skipped transitions (e.g. hidden tab) still swap views.
+          await transition.finished.catch(() => {});
+        } else {
+          await fade(1, 0, 220);
+          swap();
+          await fade(0, 1, 380);
+        }
       }
     } finally {
       body.inert = false;
@@ -397,4 +434,17 @@ setupScrollReveal();
     if (motion.matches) { wantsPlayback = false; video.pause(); }
   });
   if (wantsPlayback && document.body.classList.contains('at-intro')) play();
+})();
+
+// Header gains a soft shadow after scrolling; one passive listener, at most once per frame.
+(() => {
+  let queued = false;
+  const update = () => {
+    queued = false;
+    document.body.classList.toggle('is-scrolled', window.scrollY > 8);
+  };
+  window.addEventListener('scroll', () => {
+    if (!queued) { queued = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
 })();
