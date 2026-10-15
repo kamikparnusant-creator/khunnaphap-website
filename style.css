@@ -319,19 +319,14 @@ body.is-scrolled .site-header{box-shadow:0 6px 24px #2d213e14;border-bottom-colo
 .theme-switch{position:relative;flex:none;margin-left:auto}
 .theme-switch[hidden]{display:none}
 .theme-toggle{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:12px;background:#ffffffb3;color:var(--ink);cursor:pointer;transition:background-color .2s ease,border-color .2s ease}
-.theme-toggle:hover,.theme-toggle[aria-expanded=true]{background:var(--soft);border-color:#cdb5ea}
-.theme-toggle svg,.theme-menu svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.theme-toggle .icon-moon{display:none}
-html[data-theme=dark] .theme-toggle .icon-sun{display:none}
-html[data-theme=dark] .theme-toggle .icon-moon{display:block}
-.theme-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:40;width:10.5rem;padding:4px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 12px 32px #2d213e26;transform-origin:top right;animation:theme-menu-in .18s var(--ease-out)}
-.theme-menu[hidden]{display:none}
-.theme-menu-label{padding:6px 10px;font-size:14px;font-weight:700;line-height:1.5;color:var(--ink)}
-.theme-menu-sep{height:1px;margin:4px -4px;background:var(--line)}
-.theme-menu [role=menuitemradio]{position:relative;display:flex;align-items:center;gap:10px;width:100%;min-height:42px;padding:6px 10px 6px 32px;border:0;border-radius:8px;background:none;color:var(--ink);font:inherit;font-size:15px;line-height:1.4;text-align:left;cursor:pointer}
-.theme-menu [role=menuitemradio]:hover,.theme-menu [role=menuitemradio]:focus-visible{background:var(--soft);outline:none}
-.theme-menu [role=menuitemradio][aria-checked=true]::before{content:"";position:absolute;left:13px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--purple)}
-@keyframes theme-menu-in{from{opacity:0;transform:translateY(-4px) scale(.95)}}
+.theme-toggle:hover{background:var(--soft);border-color:#cdb5ea}
+.theme-toggle .solar-switch{width:22px;height:22px;overflow:visible;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* Sun shrinks and un-draws while the moon grows and draws in (and back), like the solar switch component. */
+.solar-switch path{transform-box:fill-box;transform-origin:center;stroke-dasharray:1;transition:transform .7s cubic-bezier(.4,0,.2,1),stroke-dashoffset .7s cubic-bezier(.4,0,.2,1)}
+.solar-sun{transform:scale(1);stroke-dashoffset:0}
+.solar-moon{transform:scale(0);stroke-dashoffset:1}
+html[data-theme=dark] .solar-sun{transform:scale(0);stroke-dashoffset:1}
+html[data-theme=dark] .solar-moon{transform:scale(1);stroke-dashoffset:0}
 @media(min-width:761px){.site-header .main-nav{margin-left:auto}.theme-switch{margin-left:8px}}
 html.theme-switching::view-transition-old(root){animation:.3s ease both theme-fade-out}
 html.theme-switching::view-transition-new(root){animation:.3s ease both theme-fade-in}
@@ -344,8 +339,7 @@ html[data-theme=dark] ::selection{background:#4b3566;color:#fff}
 html[data-theme=dark] body .site-header{background:#141019e0}
 html[data-theme=dark] body.is-scrolled .site-header{box-shadow:0 6px 24px #0009}
 html[data-theme=dark] .theme-toggle{background:#1d1726b3}
-html[data-theme=dark] .theme-toggle:hover,html[data-theme=dark] .theme-toggle[aria-expanded=true]{border-color:#5b4678}
-html[data-theme=dark] .theme-menu{background:#1d1726;box-shadow:0 12px 32px #000a}
+html[data-theme=dark] .theme-toggle:hover{border-color:#5b4678}
 html[data-theme=dark] :is(.services-list li,.age-tool,.branch-card,.faq details,.faq-jump,.guide-accordion details,.guide-grid article,.check-section,.service-grid article,.vehicle-ages article,.poster-toolbar,.branch-finder select){background:#1b1622;color:var(--ink)}
 html[data-theme=dark] .services-list li{background:linear-gradient(180deg,#1e1828,#19141f)}
 html[data-theme=dark] .service-check{background:linear-gradient(135deg,#2e2342,#3a2b52)}
@@ -367,3 +361,16 @@ html[data-theme=dark] .poster-hint{background:#1d1726;border-color:var(--line)}
   html[data-theme=dark] body.menu-open .site-header .brand{color:var(--ink)}
   html[data-theme=dark] body.menu-open .site-header .brand-dot{color:var(--purple)}
 }
+/* Hover glow: a soft light-purple light follows the pointer inside the tax and branch-finder buttons. */
+.glow-button{position:relative;isolation:isolate;overflow:hidden;--glow-x:50%;--glow-y:50%}
+.glow-button::after{content:"";position:absolute;left:var(--glow-x);top:var(--glow-y);z-index:-1;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#d4b3f6 10%,transparent 70%);opacity:.7;pointer-events:none;transform:translate(-50%,-50%) scale(0);transition:transform .4s ease-out}
+@media(hover:hover) and (pointer:fine){
+  .glow-button:hover::after{transform:translate(-50%,-50%) scale(1.2)}
+  .button-dark.glow-button:hover{background:transparent;box-shadow:0 8px 22px #7645b51f}
+}
+.glow-button.is-glowing::after{transform:translate(-50%,-50%) scale(1.2)}
+@media(prefers-reduced-motion:reduce){.glow-button::after{transition:none}}
+/* Clear (see-through) background for the glow buttons, purple text and outline. */
+.button-dark.glow-button{background:transparent;color:var(--purple);border:1.5px solid #7645b566;box-shadow:none}
+html[data-theme=dark] .button-dark.glow-button{border-color:#b48cf066}
+html[data-theme=dark] .glow-button::after{background:radial-gradient(circle,#7d55b8 10%,transparent 70%)}

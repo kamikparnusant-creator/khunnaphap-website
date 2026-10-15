@@ -408,7 +408,7 @@ setupScrollReveal();
     if (activeIntro && event.deltaY > 20) enter();
   }, { passive: true });
   document.addEventListener('keydown', event => {
-    if (activeIntro && !event.target.closest?.('.theme-switch') && ['ArrowDown', 'PageDown'].includes(event.key)) enter();
+    if (activeIntro && ['ArrowDown', 'PageDown'].includes(event.key)) enter();
   });
   document.querySelectorAll('a[href="#top"]').forEach(link => link.addEventListener('click', event => {
     event.preventDefault();
@@ -437,56 +437,45 @@ setupScrollReveal();
   update();
 })();
 
-// Theme menu (light / dark / follow device), remembered on this device by theme-init.js.
+// Theme toggle: one tap switches light <-> dark; the sun/moon icon morphs in CSS.
 (() => {
   const toggle = document.querySelector('#theme-toggle');
-  const themeMenu = document.querySelector('#theme-menu');
-  if (!toggle || !themeMenu) return;
+  if (!toggle) return;
   if (!window.setThemeChoice) { toggle.closest('.theme-switch').hidden = true; return; }
   const root = document.documentElement;
-  const items = [...themeMenu.querySelectorAll('[role="menuitemradio"]')];
-  const sync = () => items.forEach(item => {
-    item.setAttribute('aria-checked', String(item.dataset.themeValue === root.dataset.themeChoice));
-  });
-  const open = () => {
-    sync();
-    themeMenu.hidden = false;
-    toggle.setAttribute('aria-expanded', 'true');
-    (items.find(item => item.getAttribute('aria-checked') === 'true') || items[0]).focus();
-  };
-  const close = (returnFocus = false) => {
-    if (themeMenu.hidden) return;
-    themeMenu.hidden = true;
-    toggle.setAttribute('aria-expanded', 'false');
-    if (returnFocus) toggle.focus();
-  };
-  toggle.addEventListener('click', () => (themeMenu.hidden ? open() : close()));
-  items.forEach(item => item.addEventListener('click', () => {
-    const apply = () => { window.setThemeChoice(item.dataset.themeValue); sync(); };
-    close(true);
-    // Cross-fade the whole page between themes where supported.
+  const sync = () => toggle.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+  sync();
+  toggle.addEventListener('click', () => {
+    const apply = () => { window.setThemeChoice(root.dataset.theme === 'dark' ? 'light' : 'dark'); sync(); };
+    // Cross-fade the page colours where supported; the icon animates either way.
     if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       root.classList.add('theme-switching');
       const transition = document.startViewTransition(apply);
       transition.ready.catch(() => {});
       transition.finished.finally(() => root.classList.remove('theme-switching'));
     } else apply();
-  }));
-  themeMenu.addEventListener('keydown', event => {
-    const index = items.indexOf(document.activeElement);
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      event.preventDefault();
-      const step = event.key === 'ArrowDown' ? 1 : -1;
-      items[(index + step + items.length) % items.length].focus();
-    } else if (event.key === 'Home' || event.key === 'End') {
-      event.preventDefault();
-      items[event.key === 'Home' ? 0 : items.length - 1].focus();
-    } else if (event.key === 'Escape') {
-      event.preventDefault();
-      close(true);
-    } else if (event.key === 'Tab') close();
-  });
-  document.addEventListener('click', event => {
-    if (!themeMenu.hidden && !event.target.closest('.theme-switch')) close();
   });
 })();
+
+// Glow buttons: the light follows the mouse on hover, and appears where a finger touches on phones.
+document.querySelectorAll('.glow-button').forEach(button => {
+  let fadeTimer;
+  const moveGlow = event => {
+    const rect = button.getBoundingClientRect();
+    button.style.setProperty('--glow-x', `${event.clientX - rect.left}px`);
+    button.style.setProperty('--glow-y', `${event.clientY - rect.top}px`);
+  };
+  button.addEventListener('pointermove', moveGlow);
+  button.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse') return;
+    clearTimeout(fadeTimer);
+    moveGlow(event);
+    button.classList.add('is-glowing');
+  });
+  // Keep the glow briefly after the finger lifts so the press is visible.
+  const release = () => {
+    clearTimeout(fadeTimer);
+    fadeTimer = setTimeout(() => button.classList.remove('is-glowing'), 350);
+  };
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(type => button.addEventListener(type, release));
+});

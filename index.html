@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="theme-init.js?v=light-20261015"></script>
-    <link rel="stylesheet" href="style.css?v=whiteintro-20261015" />
+    <link rel="stylesheet" href="style.css?v=clear-20261015" />
     <link rel="stylesheet" href="guide.css?v=accordion-20260909" />
   </head>
   <body class="at-intro">
@@ -21,13 +21,7 @@
         <a href="#services">บริการ</a><a href="#preparation">เอกสารที่ต้องใช้</a><a href="#branches">สาขาและเบอร์โทร</a><a href="#contact">ช่องทางการติดต่อ</a>
       </nav>
       <div class="theme-switch">
-        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="เปลี่ยนธีมสี" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
-        <div class="theme-menu" id="theme-menu" role="menu" aria-label="ธีม" hidden>
-          <div class="theme-menu-label" aria-hidden="true">ธีม</div>
-          <div class="theme-menu-sep" role="separator"></div>
-          <button type="button" role="menuitemradio" aria-checked="false" data-theme-value="light"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>สว่าง</button>
-          <button type="button" role="menuitemradio" aria-checked="false" data-theme-value="dark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>มืด</button>
-        </div>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="โหมดมืด" aria-pressed="false"><svg class="solar-switch" viewBox="0 0 25 25" aria-hidden="true" focusable="false"><path class="solar-sun" pathLength="1" d="M12.4058 17.7625C15.1672 17.7625 17.4058 15.5239 17.4058 12.7625C17.4058 10.0011 15.1672 7.76251 12.4058 7.76251C9.64434 7.76251 7.40576 10.0011 7.40576 12.7625C7.40576 15.5239 9.64434 17.7625 12.4058 17.7625Z"/><path class="solar-sun" pathLength="1" d="M12.4058 1.76251V3.76251"/><path class="solar-sun" pathLength="1" d="M12.4058 21.7625V23.7625"/><path class="solar-sun" pathLength="1" d="M4.62598 4.98248L6.04598 6.40248"/><path class="solar-sun" pathLength="1" d="M18.7656 19.1225L20.1856 20.5425"/><path class="solar-sun" pathLength="1" d="M1.40576 12.7625H3.40576"/><path class="solar-sun" pathLength="1" d="M21.4058 12.7625H23.4058"/><path class="solar-sun" pathLength="1" d="M4.62598 20.5425L6.04598 19.1225"/><path class="solar-sun" pathLength="1" d="M18.7656 6.40248L20.1856 4.98248"/><path class="solar-moon" pathLength="1" d="M21.1918 13.2013C21.0345 14.9035 20.3957 16.5257 19.35 17.8781C18.3044 19.2305 16.8953 20.2571 15.2875 20.8379C13.6797 21.4186 11.9398 21.5294 10.2713 21.1574C8.60281 20.7854 7.07479 19.9459 5.86602 18.7371C4.65725 17.5283 3.81774 16.0003 3.4457 14.3318C3.07367 12.6633 3.18451 10.9234 3.76526 9.31561C4.346 7.70783 5.37263 6.29868 6.72501 5.25307C8.07739 4.20746 9.69959 3.56862 11.4018 3.41132C10.4052 4.75958 9.92564 6.42077 10.0503 8.09273C10.175 9.76469 10.8957 11.3364 12.0812 12.5219C13.2667 13.7075 14.8384 14.4281 16.5104 14.5528C18.1823 14.6775 19.8435 14.1979 21.1918 13.2013Z"/></svg></button>
       </div>
       <button class="menu-toggle" aria-label="เปิดเมนู" aria-controls="main-nav" aria-expanded="false">☰</button>
     </header>
@@ -62,7 +56,7 @@
           <p class="section-kicker">ภาษีรถประจำปี</p>
           <h2>คำนวณ<span>ภาษีรถ</span></h2>
           <p>คำนวณภาษีรถผ่านระบบของกรมการขนส่งทางบก</p>
-          <a class="button button-dark" id="tax-calculator-link" href="https://eservice.dlt.go.th/esvapp/esv/ebk/esv02q002/index.jsf" target="_blank" rel="noopener noreferrer"><span>คำนวณภาษีรถ</span><img src="assets/tax-checklist.png" width="36" height="36" alt="" /></a>
+          <a class="button button-dark glow-button" id="tax-calculator-link" href="https://eservice.dlt.go.th/esvapp/esv/ebk/esv02q002/index.jsf" target="_blank" rel="noopener noreferrer"><span>คำนวณภาษีรถ</span><img src="assets/tax-checklist.png" width="36" height="36" alt="" /></a>
         </div>
 <a class="vehicle-age-poster" href="assets/vehicle-age-20260919.png" target="_blank" rel="noopener noreferrer" aria-label="เปิดภาพเกณฑ์อายุรถขนาดเต็มในแท็บใหม่"><img src="assets/vehicle-age-20260919.png" width="1536" height="1024" loading="lazy" alt="รถกี่ปีต้องตรวจสภาพก่อนต่อภาษีประจำปี: รถยนต์นั่งส่วนบุคคลไม่เกิน 7 คน รถยนต์นั่งส่วนบุคคลเกิน 7 คน และรถยนต์บรรทุกส่วนบุคคล อายุครบ 7 ปีขึ้นไป รถจักรยานยนต์ส่วนบุคคล อายุครบ 5 ปีขึ้นไป นับอายุรถจากวันจดทะเบียนครั้งแรก" /></a><div class="guide-alert"><span>!</span><p><strong>รถค้างภาษีเกิน 1 ปี</strong> ต้องผ่านการตรวจสภาพก่อนชำระภาษีประจำปี</p></div></section>
 
@@ -75,7 +69,7 @@
           <div class="branch-hours"><img class="hours-icon" src="assets/opening-hours-clock-20260928.png" width="44" height="44" alt="" loading="lazy" /><div><strong>เวลาเปิดบริการทุกสาขา</strong><p>จันทร์–เสาร์ <b>08:00–17:00 น.</b></p><p><strong>ปิดทุกวันอาทิตย์</strong></p><p id="opening-status" role="status"></p><p><small>นอกเวลาทำการ กรุณาโทรสอบถาม</small></p></div></div>
         </div>
         <div class="branch-finder">
-          <button class="button button-dark" id="find-nearest" type="button"><img class="location-pin-icon" src="assets/branch-location-pin-20260926.png" width="40" height="40" alt="" /><span>ค้นหาสาขาใกล้ฉัน กดได้เลย</span></button>
+          <button class="button button-dark glow-button" id="find-nearest" type="button"><img class="location-pin-icon" src="assets/branch-location-pin-20260926.png" width="40" height="40" alt="" /><span>ค้นหาสาขาใกล้ฉัน กดได้เลย</span></button>
           <label for="branch-choice">หรือเลือกสาขาเอง</label>
           <select id="branch-choice"><option value="">ทุกสาขา</option></select>
           <p id="location-status" role="status">ขอใช้ตำแหน่งเมื่อคุณกดค้นหาเท่านั้น คำนวณในเครื่องโดยไม่บันทึกตำแหน่ง</p>
@@ -103,6 +97,6 @@
       <div class="poster-toolbar"><strong id="poster-title">ดูรูปขนาดใหญ่</strong><button type="button" id="poster-close" aria-label="ปิดรูป">ปิด ×</button></div>
       <div class="poster-scroll"><img id="poster-full" alt="" /></div>
     </dialog>
-    <script src="script.js?v=theme-20261015"></script>
+    <script src="script.js?v=glow3-20261015"></script>
   </body>
 </html>
