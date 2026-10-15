@@ -372,9 +372,6 @@ setupScrollReveal();
           activeIntro = desiredIntro;
           body.classList.toggle('at-intro', activeIntro);
           window.scrollTo({ top: 0, behavior: 'instant' });
-          const video = document.querySelector('#hero-video');
-          if (!activeIntro) video?.pause();
-          else if (!motion.matches && matchMedia('(min-width:761px)').matches && !navigator.connection?.saveData) video?.play().catch(() => {});
         };
         if (document.startViewTransition && !motion.matches) {
           const transition = document.startViewTransition(swap);
@@ -393,13 +390,25 @@ setupScrollReveal();
       (activeIntro ? start : heading).focus({ preventScroll: true });
     }
   };
-  start.addEventListener('click', event => {
-    event.preventDefault();
-    if (changing) return;
-    history.pushState(null, '', '#services');
+  // Leave the welcome screen; optionally land on a later section such as the branches.
+  const enter = async (hash = '#services') => {
+    if (changing || !activeIntro) return;
+    history.pushState(null, '', hash);
     updateShortcut();
     desiredIntro = false;
-    changeView();
+    await changeView();
+    if (hash !== '#services') document.querySelector(hash)?.scrollIntoView({ behavior: motion.matches ? 'auto' : 'smooth' });
+  };
+  document.querySelectorAll('.hero-start, .hero-scroll, .hero-branches').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    enter(link.getAttribute('href'));
+  }));
+  // On the welcome screen, scrolling down (wheel or keys) opens the services view.
+  window.addEventListener('wheel', event => {
+    if (activeIntro && event.deltaY > 20) enter();
+  }, { passive: true });
+  document.addEventListener('keydown', event => {
+    if (activeIntro && ['ArrowDown', 'PageDown'].includes(event.key)) enter();
   });
   document.querySelectorAll('a[href="#top"]').forEach(link => link.addEventListener('click', event => {
     event.preventDefault();
@@ -413,28 +422,6 @@ setupScrollReveal();
     desiredIntro = !location.hash || location.hash === '#top';
     if (activeIntro !== desiredIntro) changeView();
   });
-})();
-
-// Autoplay stays silent; reduced-motion and data-saving users get the poster.
-
-(() => {
-  const video = document.getElementById('hero-video');
-  if (!video) return;
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const mobileHero = matchMedia('(max-width: 760px)');
-  let wantsPlayback = !motion.matches && !navigator.connection?.saveData && !mobileHero.matches;
-  mobileHero.addEventListener('change', () => {
-    wantsPlayback = !mobileHero.matches && !motion.matches && !navigator.connection?.saveData;
-    if (wantsPlayback && !document.hidden && document.body.classList.contains('at-intro')) play(); else video.pause();
-  });
-  const play = () => { video.muted = true; video.play().catch(() => {}); };
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) video.pause(); else if (wantsPlayback && document.body.classList.contains('at-intro')) play();
-  });
-  motion.addEventListener('change', () => {
-    if (motion.matches) { wantsPlayback = false; video.pause(); }
-  });
-  if (wantsPlayback && document.body.classList.contains('at-intro')) play();
 })();
 
 // Header gains a soft shadow after scrolling; one passive listener, at most once per frame.
