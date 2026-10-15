@@ -315,3 +315,55 @@ body.is-scrolled .site-header{box-shadow:0 6px 24px #2d213e14;border-bottom-colo
   .hero-buttons .hero-start{isolation:isolate;overflow:hidden;border:0;color:#60339b;background:#ffffff1f;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 8px 28px #7645b51f}
   .hero-buttons .hero-start:active{background:#ffffff40}
 }
+/* Theme switch: icon button in the header with a Light / Dark / System menu. */
+.theme-switch{position:relative;flex:none;margin-left:auto}
+.theme-switch[hidden]{display:none}
+.theme-toggle{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:12px;background:#ffffffb3;color:var(--ink);cursor:pointer;transition:background-color .2s ease,border-color .2s ease}
+.theme-toggle:hover,.theme-toggle[aria-expanded=true]{background:var(--soft);border-color:#cdb5ea}
+.theme-toggle svg,.theme-menu svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.theme-toggle .icon-moon{display:none}
+html[data-theme=dark] .theme-toggle .icon-sun{display:none}
+html[data-theme=dark] .theme-toggle .icon-moon{display:block}
+.theme-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:40;width:10.5rem;padding:4px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 12px 32px #2d213e26;transform-origin:top right;animation:theme-menu-in .18s var(--ease-out)}
+.theme-menu[hidden]{display:none}
+.theme-menu-label{padding:6px 10px;font-size:14px;font-weight:700;line-height:1.5;color:var(--ink)}
+.theme-menu-sep{height:1px;margin:4px -4px;background:var(--line)}
+.theme-menu [role=menuitemradio]{position:relative;display:flex;align-items:center;gap:10px;width:100%;min-height:42px;padding:6px 10px 6px 32px;border:0;border-radius:8px;background:none;color:var(--ink);font:inherit;font-size:15px;line-height:1.4;text-align:left;cursor:pointer}
+.theme-menu [role=menuitemradio]:hover,.theme-menu [role=menuitemradio]:focus-visible{background:var(--soft);outline:none}
+.theme-menu [role=menuitemradio][aria-checked=true]::before{content:"";position:absolute;left:13px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--purple)}
+@keyframes theme-menu-in{from{opacity:0;transform:translateY(-4px) scale(.95)}}
+@media(min-width:761px){.site-header .main-nav{margin-left:auto}.theme-switch{margin-left:8px}}
+html.theme-switching::view-transition-old(root){animation:.3s ease both theme-fade-out}
+html.theme-switching::view-transition-new(root){animation:.3s ease both theme-fade-in}
+@keyframes theme-fade-out{to{opacity:0}}
+@keyframes theme-fade-in{from{opacity:0}}
+
+/* Dark theme: same purple identity on a deep aubergine background. */
+html[data-theme=dark]{color-scheme:dark;background:#141019;--ink:#ece6f3;--muted:#c4b9d0;--paper:#141019;--purple:#b48cf0;--soft:#241c30;--line:#352b42;--shadow-sm:0 1px 2px #0006,0 4px 14px #0004;--shadow-md:0 2px 6px #0006,0 16px 36px #0008}
+html[data-theme=dark] ::selection{background:#4b3566;color:#fff}
+html[data-theme=dark] body .site-header{background:#141019e0}
+html[data-theme=dark] body.is-scrolled .site-header{box-shadow:0 6px 24px #0009}
+html[data-theme=dark] .theme-toggle{background:#1d1726b3}
+html[data-theme=dark] .theme-toggle:hover,html[data-theme=dark] .theme-toggle[aria-expanded=true]{border-color:#5b4678}
+html[data-theme=dark] .theme-menu{background:#1d1726;box-shadow:0 12px 32px #000a}
+html[data-theme=dark] :is(.services-list li,.age-tool,.branch-card,.faq details,.faq-jump,.guide-accordion details,.guide-grid article,.check-section,.service-grid article,.vehicle-ages article,.poster-toolbar,.branch-finder select){background:#1b1622;color:var(--ink)}
+html[data-theme=dark] .services-list li{background:linear-gradient(180deg,#1e1828,#19141f)}
+html[data-theme=dark] .service-check{background:linear-gradient(135deg,#2e2342,#3a2b52)}
+html[data-theme=dark] :is(.age-tool>p,.branch-finder p,.guide-answer,.check-content>p,.check-list li){color:var(--muted)}
+html[data-theme=dark] .guide-accordion summary{color:var(--ink)}
+html[data-theme=dark] .branch-hours{border-color:var(--line)}
+html[data-theme=dark] :is(.branch-card,.faq details,.faq-jump):hover,html[data-theme=dark] .branch-card.selected-branch,html[data-theme=dark] .faq details[open]{border-color:#5b4678}
+html[data-theme=dark] .guide-alert{background:#2a2412;border-color:#4d4220;color:#e8d9a6}
+html[data-theme=dark] .guide-alert strong{color:#f3e4b0}
+html[data-theme=dark] .eligibility>.guide-alert>p{color:#e8d9a6}
+html[data-theme=dark] .guide-alert>span{color:#2a2412}
+html[data-theme=dark] .poster-hint{background:#1d1726;border-color:var(--line)}
+@media(max-width:760px){
+  html[data-theme=dark] body .site-header .main-nav{background:#17121e}
+  html[data-theme=dark] body .site-header .main-nav a{color:var(--ink);border-bottom-color:var(--line)}
+  html[data-theme=dark] body .site-header .main-nav a:hover{color:var(--purple)}
+  html[data-theme=dark] body .site-header .menu-toggle{background:#241c30;border-color:#3d3249;color:#d8baf4}
+  html[data-theme=dark] body .site-header .menu-toggle[aria-expanded=true]{background:#49305f;border-color:#775b90;color:#fff}
+  html[data-theme=dark] body.menu-open .site-header .brand{color:var(--ink)}
+  html[data-theme=dark] body.menu-open .site-header .brand-dot{color:var(--purple)}
+}

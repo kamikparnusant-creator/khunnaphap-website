@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=glass4-20261015" />
+    <script src="theme-init.js?v=light-20261015"></script>
+    <link rel="stylesheet" href="style.css?v=whiteintro-20261015" />
     <link rel="stylesheet" href="guide.css?v=accordion-20260909" />
   </head>
   <body class="at-intro">
@@ -19,6 +20,15 @@
       <nav class="main-nav" id="main-nav" aria-label="เมนูหลัก">
         <a href="#services">บริการ</a><a href="#preparation">เอกสารที่ต้องใช้</a><a href="#branches">สาขาและเบอร์โทร</a><a href="#contact">ช่องทางการติดต่อ</a>
       </nav>
+      <div class="theme-switch">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="เปลี่ยนธีมสี" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+        <div class="theme-menu" id="theme-menu" role="menu" aria-label="ธีม" hidden>
+          <div class="theme-menu-label" aria-hidden="true">ธีม</div>
+          <div class="theme-menu-sep" role="separator"></div>
+          <button type="button" role="menuitemradio" aria-checked="false" data-theme-value="light"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>สว่าง</button>
+          <button type="button" role="menuitemradio" aria-checked="false" data-theme-value="dark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>มืด</button>
+        </div>
+      </div>
       <button class="menu-toggle" aria-label="เปิดเมนู" aria-controls="main-nav" aria-expanded="false">☰</button>
     </header>
 
@@ -93,6 +103,6 @@
       <div class="poster-toolbar"><strong id="poster-title">ดูรูปขนาดใหญ่</strong><button type="button" id="poster-close" aria-label="ปิดรูป">ปิด ×</button></div>
       <div class="poster-scroll"><img id="poster-full" alt="" /></div>
     </dialog>
-    <script src="script.js?v=glass4-20261015"></script>
+    <script src="script.js?v=theme-20261015"></script>
   </body>
 </html>
