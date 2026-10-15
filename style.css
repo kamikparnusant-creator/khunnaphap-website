@@ -285,7 +285,7 @@ body.is-scrolled .site-header{box-shadow:0 6px 24px #2d213e14;border-bottom-colo
   .hero-cinema .mobile-welcome p{margin:6px 0 0;color:#4b365f;font-size:clamp(18px,1.6vw,24px);letter-spacing:3px}
   .hero-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
   .hero-buttons a{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:64px;padding:14px 36px;border-radius:999px;font-size:19px;font-weight:600;line-height:1.3;transition:transform .6s cubic-bezier(.4,0,.2,1),box-shadow .6s cubic-bezier(.4,0,.2,1),background-color .4s ease,border-color .4s ease}
-  .hero-buttons .hero-start{position:static;transform:none;width:auto;background:#1f1a29;color:#fff;border:1px solid #1f1a29;box-shadow:0 8px 24px #1f1a2933;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .hero-buttons .hero-start{position:relative;inset:auto;isolation:isolate;overflow:hidden;transform:none;width:auto;color:#60339b;border:0;background:#ffffff1f;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 8px 28px #7645b51f}
   .hero-branches{background:#fff;color:#1f1a29;border:1px solid #d6cfdd}
   .hero-branches svg{width:24px;height:24px;flex:none;fill:none;stroke:#7645b5;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .hero-scroll{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 16px;color:#8a7f96;font-size:16px;transition:color .2s ease}
@@ -294,6 +294,24 @@ body.is-scrolled .site-header{box-shadow:0 6px 24px #2d213e14;border-bottom-colo
   .hero-buttons .hero-start:active,.hero-branches:active{transform:scale(.97)}
 }
 @media(min-width:761px) and (hover:hover) and (pointer:fine){
-  .hero-buttons .hero-start:hover{transform:scale(1.06);background:#33284a;border-color:#33284a;box-shadow:0 12px 28px #1f1a2940}
+  .hero-buttons .hero-start:hover{transform:scale(1.06);background:#ffffff33;box-shadow:0 12px 34px #7645b538}
   .hero-branches:hover{transform:scale(1.06);border-color:#b9a3d6;box-shadow:0 10px 24px #2d213e14}
+}
+/* Desktop start button: translucent purple glass with a light that travels around its edge. */
+@property --gleam-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+@property --gleam-arc{syntax:"<percentage>";initial-value:6%;inherits:false}
+/* Applies to phones and computers alike. */
+@media all{
+  .hero-buttons .hero-start::before,.hero-buttons .hero-start::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none}
+  .hero-buttons .hero-start::before{padding:2px;background:conic-gradient(from var(--gleam-angle),transparent,#9b6ad8 var(--gleam-arc),#7645b5 calc(var(--gleam-arc)*2),#9b6ad8 calc(var(--gleam-arc)*3),transparent calc(var(--gleam-arc)*4)),#7645b52e;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:gleam-spin 3s linear infinite;transition:--gleam-arc .8s cubic-bezier(.25,1,.5,1)}
+  .hero-buttons .hero-start::after{background:radial-gradient(120% 90% at 50% 130%,#9b6ad82e,transparent 60%);opacity:0;transition:opacity .6s ease}
+  .hero-buttons .hero-start:is(:hover,:focus-visible)::before{--gleam-arc:16%}
+  .hero-buttons .hero-start:is(:hover,:focus-visible)::after{opacity:1}
+}
+@keyframes gleam-spin{to{--gleam-angle:360deg}}
+@media(prefers-reduced-motion:reduce){.hero-buttons .hero-start::before{animation:none}}
+/* Phone start button: same clear glass and travelling purple edge light, kept in its bottom position. */
+@media(max-width:760px){
+  .hero-buttons .hero-start{isolation:isolate;overflow:hidden;border:0;color:#60339b;background:#ffffff1f;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 8px 28px #7645b51f}
+  .hero-buttons .hero-start:active{background:#ffffff40}
 }
