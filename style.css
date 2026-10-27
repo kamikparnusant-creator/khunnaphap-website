@@ -443,3 +443,18 @@ html[data-theme=dark] .timeline li{background:#1b1622}
 html[data-theme=dark] .timeline-num{color:#1f1a29}
 @media(max-width:900px){.process-timeline .process-grid{grid-template-columns:1fr;gap:28px}}
 @media(max-width:760px){.timeline{padding-left:28px;gap:16px}.timeline li{padding:18px 16px}.timeline-num{left:-46px;top:18px;width:32px;height:32px;font-size:15px}.timeline h3{font-size:18px}}
+/* Computer only: tax calculator and the "รถค้างภาษีเกิน 1 ปี" note share one white frame, side by side. */
+@media(min-width:761px){
+  main>.eligibility.eligibility-poster{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:36px;margin-top:56px;margin-bottom:56px;padding:36px;border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:var(--shadow-sm)}
+  .eligibility-poster>.age-tool{padding:0;border:0;background:transparent;box-shadow:none}
+  .eligibility.eligibility-poster>.guide-alert{grid-column:auto;margin:0}
+  html[data-theme=dark] main>.eligibility.eligibility-poster,html[data-theme=dark] .eligibility-poster>.age-tool{background:#1b1622}
+  html[data-theme=dark] .eligibility-poster>.age-tool{background:transparent}
+}
+/* "รถค้างภาษีเกิน 1 ปี": no yellow box, just the warning icon and text. */
+.eligibility.eligibility-poster>.guide-alert,html[data-theme=dark] .eligibility.eligibility-poster>.guide-alert{background:transparent;border:0;padding:0;border-radius:0}
+.eligibility.eligibility-poster>.guide-alert strong{color:#1f1a29}
+.eligibility.eligibility-poster>.guide-alert>p{color:#4d4658}
+html[data-theme=dark] .eligibility.eligibility-poster>.guide-alert strong{color:var(--ink)}
+html[data-theme=dark] .eligibility.eligibility-poster>.guide-alert>p{color:var(--muted)}
+@media(max-width:760px){.eligibility.eligibility-poster>.guide-alert{padding:0 4px}}
