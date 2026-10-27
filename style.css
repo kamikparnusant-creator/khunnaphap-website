@@ -366,11 +366,36 @@ html[data-theme=dark] .poster-hint{background:#1d1726;border-color:var(--line)}
 .glow-button::after{content:"";position:absolute;left:var(--glow-x);top:var(--glow-y);z-index:-1;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#d4b3f6 10%,transparent 70%);opacity:.7;pointer-events:none;transform:translate(-50%,-50%) scale(0);transition:transform .4s ease-out}
 @media(hover:hover) and (pointer:fine){
   .glow-button:hover::after{transform:translate(-50%,-50%) scale(1.2)}
-  .button-dark.glow-button:hover{background:transparent;box-shadow:0 8px 22px #7645b51f}
+  .button-dark.glow-button:hover{background:#e6e2ec;box-shadow:none;transform:scale(1.05)}
 }
 .glow-button.is-glowing::after{transform:translate(-50%,-50%) scale(1.2)}
 @media(prefers-reduced-motion:reduce){.glow-button::after{transition:none}}
 /* Clear (see-through) background for the glow buttons, purple text and outline. */
-.button-dark.glow-button{background:transparent;color:var(--purple);border:1.5px solid #7645b566;box-shadow:none}
-html[data-theme=dark] .button-dark.glow-button{border-color:#b48cf066}
+/* Tax and branch-finder buttons use the same soft grey pill as "ค้นหาสาขาใกล้บ้าน". */
+.button-dark.glow-button{justify-content:center;gap:10px;min-height:56px;padding:12px 30px 12px 26px;border:0;border-radius:999px;background:#efedf2;color:#1f1a29;font-size:17px;font-weight:600;box-shadow:none;transition:transform .6s cubic-bezier(.4,0,.2,1),background-color .3s ease}
+html[data-theme=dark] .button-dark.glow-button{background:#241c30;color:var(--ink)}
+html[data-theme=dark] .button-dark.glow-button:hover{background:#2e2440}
 html[data-theme=dark] .glow-button::after{background:radial-gradient(circle,#7d55b8 10%,transparent 70%)}
+/* "ตรอ. คืออะไร" introduction: clean centred statement (first block after the welcome screen). */
+.about-tro{padding:104px 24px 88px;text-align:center}
+.about-tro h2{max-width:900px;margin:0 auto 24px;font-size:clamp(28px,3.6vw,46px);font-weight:600;line-height:1.55;letter-spacing:-.5px;color:#1f1a29;text-wrap:balance}
+.about-lead{max-width:780px;margin:0 auto 36px;font-size:clamp(17px,1.5vw,19px);line-height:1.85;color:#5f3a99;text-wrap:pretty}
+.about-lead strong{color:#60339b;font-weight:700}
+.about-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.about-btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:14px 32px;border-radius:999px;font-size:17px;font-weight:600;line-height:1.3;transition:transform .6s cubic-bezier(.4,0,.2,1),background-color .3s ease}
+.about-btn-dark{background:#1f1a29;color:#fff}
+.about-btn-light{background:#efedf2;color:#1f1a29}
+.about-checks{max-width:780px;margin:40px auto 0;font-size:15px;line-height:1.9;color:#7350a8}
+.about-checks span{font-weight:700;color:#60339b}
+.about-checks b{font-weight:400;white-space:nowrap}
+@media(hover:hover) and (pointer:fine){.about-btn:hover{transform:scale(1.05)}.about-btn-dark:hover{background:#33284a}.about-btn-light:hover{background:#e6e2ec}}
+.about-btn:active{transform:scale(.97)}
+html[data-theme=dark] .about-tro h2,html[data-theme=dark] :is(.about-lead strong,.about-checks span){color:var(--ink)}
+html[data-theme=dark] :is(.about-lead,.about-checks){color:#d4c2ec}
+html[data-theme=dark] :is(.about-lead strong,.about-checks span){color:#c9a6f0}
+html[data-theme=dark] .about-btn-dark{background:#ece6f3;color:#1f1a29}
+html[data-theme=dark] .about-btn-light{background:#241c30;color:var(--ink)}
+@media(max-width:760px){.about-tro{padding:56px 4px 40px}.about-tro h2{margin-bottom:18px}.about-lead{margin-bottom:28px}.about-btn{min-height:52px;padding:12px 24px;font-size:16px}.about-checks{margin-top:28px}}
+/* Branch finder panel on white (like the tax card) so the grey pill button stands out. */
+.branch-finder{background:#fff;box-shadow:var(--shadow-sm)}
+html[data-theme=dark] .branch-finder{background:#1b1622}
