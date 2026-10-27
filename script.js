@@ -479,3 +479,63 @@ document.querySelectorAll('.glow-button').forEach(button => {
   };
   ['pointerup', 'pointercancel', 'pointerleave'].forEach(type => button.addEventListener(type, release));
 });
+
+// Welcome line alternates Thai / English; letters slide up one after another (like a text-rotate component).
+(() => {
+  const line = document.querySelector('.mobile-welcome p');
+  if (!line) return;
+  const texts = [
+    { text: 'ยินดีให้บริการ', lang: 'th' },
+    { text: 'Welcome', lang: 'en' },
+    { text: 'At your service', lang: 'en' }
+  ];
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const segmenter = 'Segmenter' in Intl ? new Intl.Segmenter('th', { granularity: 'grapheme' }) : null;
+  const graphemes = text => (segmenter ? [...segmenter.segment(text)].map(part => part.segment) : [...text]);
+  const label = document.createElement('span');
+  label.className = 'sr-only';
+  const stage = document.createElement('span');
+  stage.className = 'rotate-stage';
+  stage.setAttribute('aria-hidden', 'true');
+  line.replaceChildren(label, stage);
+
+  let index = 0;
+  const render = ({ text, lang }) => {
+    label.textContent = text;
+    label.lang = lang;
+    stage.replaceChildren();
+    text.split(' ').forEach((word, wordIndex) => {
+      if (wordIndex) stage.append(' ');
+      const wrap = document.createElement('span');
+      wrap.className = 'rotate-word';
+      graphemes(word).forEach(char => {
+        const piece = document.createElement('span');
+        piece.className = 'rotate-char';
+        piece.textContent = char;
+        wrap.append(piece);
+      });
+      stage.append(wrap);
+    });
+    return [...stage.querySelectorAll('.rotate-char')];
+  };
+  const stagger = (chars, keyframes, options) => Promise.all(chars.map((char, i) =>
+    char.animate(keyframes, { ...options, delay: (chars.length - 1 - i) * 25 }).finished.catch(() => {})
+  ));
+
+  let chars = render(texts[0]);
+  const next = async () => {
+    index = (index + 1) % texts.length;
+    if (motion.matches || !Element.prototype.animate) { chars = render(texts[index]); return; }
+    await stagger(chars, [{ transform: 'translateY(0)' }, { transform: 'translateY(-120%)', opacity: 0 }],
+      { duration: 320, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' });
+    chars = render(texts[index]);
+    await stagger(chars, [{ transform: 'translateY(100%)', opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }],
+      { duration: 520, easing: 'cubic-bezier(.22,1.25,.36,1)', fill: 'backwards' });
+  };
+  // Rotate only while the welcome screen is showing and the tab is visible.
+  const tick = async () => {
+    if (!document.hidden && document.body.classList.contains('at-intro')) await next();
+    setTimeout(tick, 2600);
+  };
+  setTimeout(tick, 2600);
+})();
