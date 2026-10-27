@@ -427,3 +427,19 @@ html[data-theme=dark] .poster-btn{background:#ece6f3;color:#1f1a29}
 @media(max-width:760px){.poster-panels{padding:48px 0}.poster-panel{padding:30px 18px 28px;border-radius:24px}.poster-panels .poster-frame{height:auto;max-height:75vh;padding:10px}.poster-panels .poster-frame img{width:100%;height:auto;max-height:calc(75vh - 20px)}}
 /* No grey frame behind the poster panels: just text, image card and button. */
 .poster-panel,html[data-theme=dark] .poster-panel{background:transparent;padding-left:0;padding-right:0}
+/* Process steps as a vertical timeline: intro on the left, numbered cards on a purple line. */
+.process-timeline .process-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.process-intro h2{margin-bottom:18px}
+.process-intro em{font-style:normal;color:var(--purple)}
+.process-intro p{max-width:420px;margin:0;font-size:17px;line-height:1.85;color:var(--muted)}
+.timeline{position:relative;display:grid;gap:22px;margin:0;padding:0 0 0 36px;list-style:none;border-left:2px solid #c9b2e8}
+.timeline li{position:relative;display:flex;align-items:flex-start;gap:14px;padding:24px;border:1px solid var(--line);border-radius:20px;background:#faf8fc;box-shadow:var(--shadow-sm)}
+.timeline-num{position:absolute;left:-55px;top:22px;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;font-size:16px;font-weight:700;box-shadow:0 0 0 5px var(--paper)}
+.timeline-check{flex:none;width:22px;height:22px;margin-top:3px;fill:none;stroke:var(--purple);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.timeline h3{margin:0;font-size:19px;line-height:1.5}
+.timeline p{margin:6px 0 0;font-size:15px;line-height:1.75;color:var(--muted)}
+html[data-theme=dark] .timeline{border-left-color:#4b3a63}
+html[data-theme=dark] .timeline li{background:#1b1622}
+html[data-theme=dark] .timeline-num{color:#1f1a29}
+@media(max-width:900px){.process-timeline .process-grid{grid-template-columns:1fr;gap:28px}}
+@media(max-width:760px){.timeline{padding-left:28px;gap:16px}.timeline li{padding:18px 16px}.timeline-num{left:-46px;top:18px;width:32px;height:32px;font-size:15px}.timeline h3{font-size:18px}}

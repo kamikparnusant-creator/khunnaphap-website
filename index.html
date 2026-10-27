@@ -282,7 +282,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="theme-init.js?v=light-20261015"></script>
-    <link rel="stylesheet" href="style.css?v=panels4-20261027" />
+    <link rel="stylesheet" href="style.css?v=timeline-20261027" />
     <link rel="stylesheet" href="guide.css?v=accordion-20260909" />
   </head>
   <body class="at-intro">
@@ -329,7 +329,19 @@
         </ul>
       </section>
 
-      <section class="process-section" id="process"><div class="process-head"><h2>ตรวจรถได้ง่าย<br /><em>เข้าใจทุกขั้นตอน</em></h2></div><div class="steps"><article><span>1</span><h3>เข้ารับบริการ</h3><p>นำรถและเล่มทะเบียนเข้ารับบริการที่ศูนย์ตรวจสภาพ</p></article><article><span>2</span><h3>นำรถเข้าตรวจ</h3><p>ตรวจตามรายการที่เหมาะกับประเภทรถและการเข้ารับบริการ</p></article><article><span>3</span><h3>รับผลและคำแนะนำ</h3><p>รับผลตรวจที่เข้าใจง่าย พร้อมคำแนะนำเฉพาะรถของคุณ</p></article></div></section>
+      <section class="process-section process-timeline" id="process" aria-labelledby="process-title">
+        <div class="process-grid">
+          <div class="process-intro">
+            <h2 id="process-title">ตรวจรถได้ง่าย<br /><em>เข้าใจทุกขั้นตอน</em></h2>
+            <p>ทุกขั้นตอนชัดเจน ตั้งแต่นำรถเข้ามาจนได้รับผลตรวจ พร้อมคำแนะนำจากเจ้าหน้าที่</p>
+          </div>
+          <ol class="timeline">
+            <li><span class="timeline-num" aria-hidden="true">1</span><svg class="timeline-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg><div><h3>เข้ารับบริการ</h3><p>นำรถและเล่มทะเบียนเข้ารับบริการที่ศูนย์ตรวจสภาพ</p></div></li>
+            <li><span class="timeline-num" aria-hidden="true">2</span><svg class="timeline-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg><div><h3>นำรถเข้าตรวจ</h3><p>ตรวจตามรายการที่เหมาะกับประเภทรถและการเข้ารับบริการ</p></div></li>
+            <li><span class="timeline-num" aria-hidden="true">3</span><svg class="timeline-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg><div><h3>รับผลและคำแนะนำ</h3><p>รับผลตรวจที่เข้าใจง่าย พร้อมคำแนะนำเฉพาะรถของคุณ</p></div></li>
+          </ol>
+        </div>
+      </section>
 
       <section class="eligibility eligibility-poster" id="eligibility" aria-label="คำนวณภาษีรถและเกณฑ์อายุตรวจสภาพ">
         <div class="age-tool">
