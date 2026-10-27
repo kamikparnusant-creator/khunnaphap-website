@@ -395,7 +395,7 @@ setupScrollReveal();
     await changeView();
     if (hash !== '#services') document.querySelector(hash)?.scrollIntoView({ behavior: motion.matches ? 'auto' : 'smooth' });
   };
-  document.querySelectorAll('.hero-start, .hero-scroll, .hero-branches').forEach(link => link.addEventListener('click', event => {
+  document.querySelectorAll('.hero-start, .hero-branches').forEach(link => link.addEventListener('click', event => {
     event.preventDefault();
     enter(link.getAttribute('href'));
   }));
@@ -515,7 +515,7 @@ document.querySelectorAll('.glow-button').forEach(button => {
     return [...stage.querySelectorAll('.rotate-char')];
   };
   const stagger = (chars, keyframes, options) => Promise.all(chars.map((char, i) =>
-    char.animate(keyframes, { ...options, delay: (chars.length - 1 - i) * 25 }).finished.catch(() => {})
+    char.animate(keyframes, { ...options, delay: (chars.length - 1 - i) * 18 }).finished.catch(() => {})
   ));
 
   let chars = render(texts[0]);
@@ -523,17 +523,17 @@ document.querySelectorAll('.glow-button').forEach(button => {
     index = (index + 1) % texts.length;
     if (motion.matches || !Element.prototype.animate) { chars = render(texts[index]); return; }
     await stagger(chars, [{ transform: 'translateY(0)' }, { transform: 'translateY(-120%)', opacity: 0 }],
-      { duration: 320, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' });
+      { duration: 260, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' });
     chars = render(texts[index]);
     await stagger(chars, [{ transform: 'translateY(100%)', opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }],
-      { duration: 520, easing: 'cubic-bezier(.22,1.25,.36,1)', fill: 'backwards' });
+      { duration: 440, easing: 'cubic-bezier(.22,1.25,.36,1)', fill: 'backwards' });
   };
   // Rotate only while the welcome screen is showing and the tab is visible.
   const tick = async () => {
     if (!document.hidden && document.body.classList.contains('at-intro')) await next();
-    setTimeout(tick, 2600);
+    setTimeout(tick, 1300);
   };
-  setTimeout(tick, 2600);
+  setTimeout(tick, 1300);
 })();
 
 // "ดูรูปขนาดเต็ม" buttons open the same in-page viewer as tapping the poster itself.
