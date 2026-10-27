@@ -264,10 +264,6 @@ document.querySelectorAll('.vehicle-age-poster').forEach(link => {
   if (!posterDialog.showModal) return; // Original full-image link remains usable.
   link.setAttribute('aria-label', 'แตะเพื่อขยายรูปในหน้านี้');
   link.setAttribute('aria-haspopup', 'dialog');
-  const hint = document.createElement('span');
-  hint.className = 'poster-hint';
-  hint.textContent = 'ขยายรูป ⤢';
-  link.append(hint);
   link.addEventListener('click', event => {
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
@@ -539,3 +535,11 @@ document.querySelectorAll('.glow-button').forEach(button => {
   };
   setTimeout(tick, 2600);
 })();
+
+// "ดูรูปขนาดเต็ม" buttons open the same in-page viewer as tapping the poster itself.
+document.querySelectorAll('[data-open-poster]').forEach(button => button.addEventListener('click', event => {
+  const poster = button.closest('.poster-panel')?.querySelector('.vehicle-age-poster');
+  if (!poster || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  poster.click();
+}));
