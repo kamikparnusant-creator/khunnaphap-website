@@ -543,3 +543,21 @@ document.querySelectorAll('[data-open-poster]').forEach(button => button.addEven
   event.preventDefault();
   poster.click();
 }));
+
+// Visitor counter via GoatCounter (trokp.goatcounter.com). Counts once per browser session;
+// local previews only read the total so testing doesn't inflate it.
+(() => {
+  const out = document.getElementById('visitor-count');
+  if (!out) return;
+  const base = 'https://trokp.goatcounter.com';
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  let counted = false;
+  try { counted = sessionStorage.getItem('gc-counted') === '1'; } catch {}
+  const hit = local || counted ? Promise.resolve() :
+    fetch(`${base}/count?p=${encodeURIComponent(location.pathname)}&r=${encodeURIComponent(document.referrer)}&s=${screen.width}&rnd=${Math.random().toString(36).slice(2)}`,
+      { mode: 'no-cors', keepalive: true }).then(() => { try { sessionStorage.setItem('gc-counted', '1'); } catch {} }).catch(() => {});
+  hit.then(() => fetch(`${base}/counter/TOTAL.json`))
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => { if (data && data.count) out.textContent = String(data.count).replace(/\s/g, ','); })
+    .catch(() => {});
+})();

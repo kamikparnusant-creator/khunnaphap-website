@@ -489,3 +489,11 @@ html[data-theme=dark] :is(.faq-head p,.faq-clean details p,.faq-cta-text small){
 html[data-theme=dark] .faq-cta{background:#1b1622}
 html[data-theme=dark] :is(.faq-cta-icon,.faq-cta-btn){background:#ece6f3;color:#1f1a29}
 @media(max-width:760px){.faq.faq-clean{padding:56px 0}.faq-clean summary{padding:18px 2px;font-size:16px}.faq-cta{flex-direction:column;align-items:stretch;text-align:left}.faq-cta-btn{justify-content:center}}
+/* Stats after branches ("in numbers" layout): static, non-clickable (no hover motion). */
+.site-stats{padding:72px 0 88px}
+.site-stats h2{margin-bottom:12px}
+.stats-lead{max-width:640px;color:var(--muted);font-size:18px;line-height:1.8;margin:0;text-wrap:balance}
+.stats-grid{margin-top:48px}
+.stat-value{color:var(--ink);font-weight:800;letter-spacing:-1px;white-space:nowrap;font-size:clamp(32px,4vw,48px);line-height:1.15;font-variant-numeric:tabular-nums}
+.stat p{margin:6px 0 0;color:var(--muted);font-size:16px;line-height:1.5}
+@media(max-width:760px){.site-stats{padding:48px 0 56px}.stats-lead{font-size:16px}.stats-grid{margin-top:32px}}
