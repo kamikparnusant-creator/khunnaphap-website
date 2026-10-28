@@ -105,7 +105,7 @@ function openingStatus(date = new Date()) {
     minute: '2-digit', hourCycle: 'h23'
   }).formatToParts(date).map(part => [part.type, part.value]));
   const minutes = Number(parts.hour) * 60 + Number(parts.minute);
-  const open = parts.weekday !== 'Sun' && minutes >= 477 && minutes < 1023;
+  const open = parts.weekday !== 'Sun' && minutes >= 480 && minutes < 1020;
   return open ? '🟢 ขณะนี้เปิดบริการ' : '🔴 ขณะนี้ปิดบริการ';
 }
 function updateOpeningStatus() {
@@ -114,7 +114,7 @@ function updateOpeningStatus() {
   if (status.textContent !== message) status.textContent = message;
 }
 updateOpeningStatus();
-setInterval(updateOpeningStatus, 1000);
+setInterval(updateOpeningStatus, 30000);
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) updateOpeningStatus();
 });
