@@ -561,3 +561,54 @@ document.querySelectorAll('[data-open-poster]').forEach(button => button.addEven
     .then(data => { if (data && data.count) out.textContent = String(data.count).replace(/\s/g, ','); })
     .catch(() => {});
 })();
+
+// About gallery: drifts left on its own and loops; drag (mouse) or swipe (touch) to move it by hand.
+// Hovering pauses it, and after a manual move it waits a moment before drifting again.
+(() => {
+  const gallery = document.querySelector('.about-gallery');
+  const track = gallery?.querySelector('.gallery-track');
+  if (!track) return;
+  const cards = track.children;
+  const half = cards.length / 2;
+  const period = () => cards[half].offsetLeft - cards[0].offsetLeft;
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let pos = 0, hovered = false, drag = null, resumeAt = 0, last = 0;
+  const wrap = () => {
+    const p = period();
+    if (p <= 0) return;
+    if (pos >= p) pos -= p;
+    if (pos < 0) pos += p;
+    gallery.scrollLeft = pos;
+  };
+  const holdOff = () => { resumeAt = performance.now() + 2500; };
+  const tick = now => {
+    const dt = last ? Math.min(now - last, 64) : 0;
+    last = now;
+    if (!still && !hovered && !drag && now > resumeAt && gallery.offsetParent) {
+      pos += dt * 0.05;
+      wrap();
+    }
+    requestAnimationFrame(tick);
+  };
+  gallery.addEventListener('scroll', () => { if (Math.abs(gallery.scrollLeft - pos) > 1) { pos = gallery.scrollLeft; wrap(); } }, { passive: true });
+  gallery.addEventListener('mouseenter', () => { hovered = true; });
+  gallery.addEventListener('mouseleave', () => { hovered = false; });
+  gallery.addEventListener('touchstart', holdOff, { passive: true });
+  gallery.addEventListener('touchend', holdOff, { passive: true });
+  gallery.addEventListener('wheel', holdOff, { passive: true });
+  gallery.addEventListener('pointerdown', event => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    drag = { x: event.clientX, start: pos };
+    gallery.classList.add('is-dragging');
+    gallery.setPointerCapture(event.pointerId);
+  });
+  gallery.addEventListener('pointermove', event => {
+    if (!drag) return;
+    pos = drag.start - (event.clientX - drag.x);
+    wrap();
+  });
+  const endDrag = () => { if (!drag) return; drag = null; gallery.classList.remove('is-dragging'); holdOff(); };
+  gallery.addEventListener('pointerup', endDrag);
+  gallery.addEventListener('pointercancel', endDrag);
+  requestAnimationFrame(tick);
+})();
