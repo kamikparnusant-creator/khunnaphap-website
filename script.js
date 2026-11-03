@@ -576,7 +576,7 @@ document.querySelectorAll('[data-open-poster]').forEach(button => button.addEven
     .catch(() => {});
 })();
 
-// About gallery: drifts left on its own and loops; drag (mouse) or swipe (touch) to move it by hand.
+// About gallery: drifts right on its own and loops; drag (mouse) or swipe (touch) to move it by hand.
 // Hovering pauses it, and after a manual move it waits a moment before drifting again.
 (() => {
   const gallery = document.querySelector('.about-gallery');
@@ -599,7 +599,7 @@ document.querySelectorAll('[data-open-poster]').forEach(button => button.addEven
     const dt = last ? Math.min(now - last, 64) : 0;
     last = now;
     if (!still && !hovered && !drag && now > resumeAt && gallery.offsetParent) {
-      pos += dt * 0.05;
+      pos -= dt * 0.04;
       wrap();
     }
     requestAnimationFrame(tick);
