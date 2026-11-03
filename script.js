@@ -136,7 +136,8 @@ let locationRequest = 0;
 branchCards.forEach((card, index) => {
   const option = document.createElement('option');
   option.value = String(index);
-  option.textContent = card.querySelector('h3').textContent;
+  const soon = card.classList.contains('branch-soon');
+  option.textContent = card.querySelector('h3').textContent + (soon ? ' · เปิดเร็วๆนี้' : '');
   branchChoice.append(option);
   const heading = card.querySelector('h3');
   const title = heading.textContent;
@@ -144,6 +145,12 @@ branchCards.forEach((card, index) => {
   toggle.type = 'button';
   toggle.className = 'branch-toggle';
   toggle.textContent = title;
+  if (soon) {
+    const badge = document.createElement('span');
+    badge.className = 'soon-badge';
+    badge.textContent = 'เปิดเร็วๆนี้';
+    toggle.append(badge);
+  }
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-controls', 'branch-detail-' + index);
   heading.replaceChildren(toggle);
