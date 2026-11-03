@@ -75,6 +75,10 @@ document.querySelectorAll('.main-nav a').forEach(link => link.addEventListener('
   document.querySelector('footer').inert = false;
   menu.setAttribute('aria-label', 'เปิดเมนู');
 }));
+// A click anywhere outside the header closes the open menu (the desktop dropdown and the mobile panel).
+document.addEventListener('click', event => {
+  if (nav.classList.contains('open') && !event.target.closest('.site-header')) menu.click();
+});
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && nav.classList.contains('open')) {
     menu.click();
