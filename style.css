@@ -533,3 +533,5 @@ html[data-theme=dark] :is(.faq-cta-icon,.faq-cta-btn){background:#ece6f3;color:#
   .hero-fan .fan-card{pointer-events:auto;transition:translate .35s cubic-bezier(.22,1,.36,1),scale .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
   .hero-fan .fan-card:hover{z-index:5;translate:0 -36px;scale:1.08;box-shadow:0 28px 56px #2d213e40}
 }
+/* Coming-soon branch: the call button becomes a plain, non-clickable "coming soon" label. */
+.branch-phone.branch-phone-soon,.branch-phone.branch-phone-soon:hover{background:var(--soft);color:var(--purple);box-shadow:none;transform:none;cursor:default}
