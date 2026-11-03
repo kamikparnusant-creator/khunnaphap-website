@@ -119,12 +119,13 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) updateOpeningStatus();
 });
 
-// Coordinates from the eight branch map links supplied by the business.
+// Coordinates from the branch map links supplied by the business, in card order.
 const branchCoordinates = [
   [13.8032461, 100.2964146], [13.8202602, 100.4793101],
   [13.8092739, 100.3799182], [13.8451259, 100.4055497],
   [13.8340129, 100.4694663], [13.8174674, 100.403208],
-  [13.9092882, 100.3515941], [13.8326472, 100.4063891]
+  [13.9092882, 100.3515941], [13.8326472, 100.4063891],
+  [13.8078333, 100.4635278]
 ];
 const branchGrid = document.querySelector('.branch-grid');
 const branchCards = [...document.querySelectorAll('.branch-card')];
@@ -231,9 +232,10 @@ nearestButton.addEventListener('click', () => {
     nearestButton.disabled = false;
     branchChoice.value = '';
     resetBranches();
+    // Branches marked "coming soon" stay out of the ranking and are listed after the open ones.
     const sorted = branchCards.map((card, index) => ({
       card, distance: distanceKm(position.coords.latitude, position.coords.longitude, ...branchCoordinates[index])
-    })).sort((a, b) => a.distance - b.distance);
+    })).filter(({ card }) => !card.classList.contains('branch-soon')).sort((a, b) => a.distance - b.distance);
     sorted.forEach(({ card, distance }, index) => {
       const label = document.createElement('p');
       label.className = 'branch-distance';
@@ -243,6 +245,7 @@ nearestButton.addEventListener('click', () => {
       card.classList.toggle('nearest-branch', index === 0);
       branchGrid.append(card);
     });
+    branchCards.filter(card => card.classList.contains('branch-soon')).forEach(card => branchGrid.append(card));
     selectContactBranch(branchCards.indexOf(sorted[0].card));
     locationStatus.textContent = 'เรียงจากใกล้ไปไกลแล้ว ระยะทางเป็นเส้นตรง ไม่ใช่ระยะขับรถ โปรดกดเปิดแผนที่เพื่อดูเส้นทางจริง' +
       (position.coords.accuracy > 1000 ? ' · ตำแหน่งที่ได้รับมีความแม่นยำต่ำ ผลอาจคลาดเคลื่อน' : '');
