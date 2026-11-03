@@ -538,3 +538,23 @@ html[data-theme=dark] :is(.faq-cta-icon,.faq-cta-btn){background:#ece6f3;color:#
 .soon-badge{flex:none;margin-left:auto;padding:3px 10px;border-radius:999px;background:var(--yellow);color:#2d213e;font-size:12px;font-weight:700;line-height:1.5;white-space:nowrap}
 /* Welcome title: dark-to-bright purple gradient text, matching the brand wordmark. */
 .hero-cinema .mobile-welcome h1{font-weight:700;background:linear-gradient(90deg,#6326d5,#9d4bf5 50%,#da39fa);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+/* Header (modelled on fastwork.com): floating rounded frosted bar, gradient wordmark left, pill switch + dark pill menu button (dropdown on desktop) right; stays put while scrolling. */
+body .site-header{top:16px;left:50%;right:auto;width:min(984px,calc(100% - 32px));height:64px;padding:0 12px 0 24px;gap:8px;transform:translateX(-50%);border:1px solid #7f7f7f1f;border-radius:32px;background:#ffffff99;box-shadow:0 8px 30px #2d213e14;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+html[data-theme=dark] body .site-header{background:#14101999;border-color:#ffffff14}
+html{scroll-padding-top:104px}
+.view-navigation body:not(.at-intro) main{padding-top:96px}
+body .site-header .brand{margin-right:auto;font-size:26px;font-weight:700;letter-spacing:-.5px;background:linear-gradient(90deg,#6326d5,#9d4bf5 50%,#da39fa);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;text-shadow:none}
+body .site-header .brand .brand-dot{color:inherit;-webkit-text-fill-color:transparent}
+body .site-header .theme-toggle{width:64px;height:48px;border:1px solid #7f7f7f2e;border-radius:999px;background:#ffffffb8;box-shadow:none}
+html[data-theme=dark] body .site-header .theme-toggle{background:#241c30b8}
+body .site-header .menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:64px;height:48px;border:0;border-radius:999px;background:#131922;color:#fff;font-size:22px;line-height:1;transition:background-color .2s ease}
+body .site-header .menu-toggle:hover,body .site-header .menu-toggle[aria-expanded=true]{background:#2b313b;color:#fff}
+html[data-theme=dark] body .site-header .menu-toggle,html[data-theme=dark] body .site-header .menu-toggle[aria-expanded=true]{background:#f1eaf8;color:#131922}
+@media(min-width:761px){
+  body .site-header .main-nav{display:none}
+  body .site-header .main-nav.open{position:absolute;top:calc(100% + 10px);right:0;display:flex;flex-direction:column;align-items:stretch;width:280px;padding:10px;gap:2px;border:1px solid #7f7f7f1f;border-radius:24px;background:#fffffff5;box-shadow:0 18px 40px #2d213e24}
+  body .site-header .main-nav.open a{display:block;text-align:left;padding:14px 18px;border-radius:16px;color:var(--ink);font-size:17px;font-weight:500}
+  body .site-header .main-nav.open a:hover{background:var(--soft);color:var(--purple)}
+  html[data-theme=dark] body .site-header .main-nav.open{background:#1d1726f5}
+}
+@media(max-width:760px){body .site-header{top:10px;left:10px;width:calc(100% - 20px);height:60px;padding:0 8px 0 18px;transform:none;border-radius:30px;background:#fffffff0;-webkit-backdrop-filter:none;backdrop-filter:none}html[data-theme=dark] body .site-header{background:#141019f0}html{scroll-padding-top:84px}.view-navigation body:not(.at-intro) main{padding-top:80px}body .site-header .theme-toggle{width:52px;height:44px}body .site-header .menu-toggle{width:52px;height:44px}body .site-header .brand{font-size:22px}}
