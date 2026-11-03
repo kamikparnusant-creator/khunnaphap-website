@@ -119,12 +119,12 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) updateOpeningStatus();
 });
 
-// Coordinates from the seven branch map links supplied by the business.
+// Coordinates from the eight branch map links supplied by the business.
 const branchCoordinates = [
   [13.8032461, 100.2964146], [13.8202602, 100.4793101],
   [13.8092739, 100.3799182], [13.8451259, 100.4055497],
   [13.8340129, 100.4694663], [13.8174674, 100.403208],
-  [13.9092882, 100.3515941]
+  [13.9092882, 100.3515941], [13.8326472, 100.4063891]
 ];
 const branchGrid = document.querySelector('.branch-grid');
 const branchCards = [...document.querySelectorAll('.branch-card')];
