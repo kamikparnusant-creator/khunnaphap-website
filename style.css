@@ -536,3 +536,5 @@ html[data-theme=dark] :is(.faq-cta-icon,.faq-cta-btn){background:#ece6f3;color:#
 /* Coming-soon branch: the call button becomes a plain, non-clickable "coming soon" label. */
 .branch-phone.branch-phone-soon,.branch-phone.branch-phone-soon:hover{background:var(--soft);color:var(--purple);box-shadow:none;transform:none;cursor:default}
 .soon-badge{flex:none;margin-left:auto;padding:3px 10px;border-radius:999px;background:var(--yellow);color:#2d213e;font-size:12px;font-weight:700;line-height:1.5;white-space:nowrap}
+/* Welcome title: dark-to-bright purple gradient text, matching the brand wordmark. */
+.hero-cinema .mobile-welcome h1{font-weight:700;background:linear-gradient(90deg,#6326d5,#9d4bf5 50%,#da39fa);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
