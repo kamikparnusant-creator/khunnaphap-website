@@ -88,19 +88,9 @@ document.addEventListener('keydown', event => {
 document.addEventListener('click', event => {
   if (nav.classList.contains('open') && !nav.contains(event.target) && !menu.contains(event.target)) menu.click();
 });
-const shortcuts = document.querySelectorAll('.mobile-dock a');
 matchMedia('(max-width:760px)').addEventListener('change', event => {
   if (!event.matches && nav.classList.contains('open')) menu.click();
 });
-function updateShortcut() {
-  const current = location.hash || '#top';
-  shortcuts.forEach(link => {
-    if (link.getAttribute('href') === current) link.setAttribute('aria-current', 'location');
-    else link.removeAttribute('aria-current');
-  });
-}
-window.addEventListener('hashchange', updateShortcut);
-updateShortcut();
 
 // Opening hours follow Thailand time, regardless of the visitor's timezone.
 function openingStatus(date = new Date()) {
@@ -360,7 +350,6 @@ setupScrollReveal();
   let changing = false;
   body.classList.toggle('at-intro', activeIntro);
   window.scrollTo({ top: 0, behavior: 'instant' });
-  updateShortcut();
 
   const fade = async (from, to, duration) => {
     if (motion.matches || !body.animate) return;
@@ -404,7 +393,6 @@ setupScrollReveal();
   const enter = async (hash = '#services') => {
     if (changing || !activeIntro) return;
     history.pushState(null, '', hash);
-    updateShortcut();
     desiredIntro = false;
     await changeView();
     if (hash !== '#services') document.querySelector(hash)?.scrollIntoView({ behavior: motion.matches ? 'auto' : 'smooth' });
@@ -424,7 +412,6 @@ setupScrollReveal();
     event.preventDefault();
     if (changing || activeIntro) return;
     history.pushState(null, '', '#top');
-    updateShortcut();
     desiredIntro = true;
     changeView();
   }));
