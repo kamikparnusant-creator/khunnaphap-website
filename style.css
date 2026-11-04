@@ -596,3 +596,31 @@ html[data-theme=dark] .branch-grid .branch-accordion,html[data-theme=dark] .bran
 }
 @media(hover:hover) and (pointer:fine){.hero-fan .fan-card:hover{z-index:6;translate:none;scale:1.06}}
 @media(prefers-reduced-motion:reduce){.hero-fan .fan-card{animation:none}}
+/* Service steps (modelled on a "how it works" board): pinned note cards placed in a zigzag on lined paper, joined by a moving dashed path; cards stay upright. */
+.process-timeline .process-grid{display:block}
+.process-timeline .process-intro{max-width:640px;margin:0 auto 32px;text-align:center}
+.process-timeline .process-intro p{margin:0 auto}
+.hiw-board{position:relative;max-width:1000px;height:640px;margin:0 auto}
+.hiw-board::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(#0000 0 31px,#2d213e14 31px 32px);-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent)}
+.hiw-path{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hiw-path path{fill:none;stroke:#cfc6da;stroke-width:2;stroke-dasharray:8 6;stroke-linecap:round;vector-effect:non-scaling-stroke;animation:hiw-dash 3s linear infinite}
+@keyframes hiw-dash{to{stroke-dashoffset:-140}}
+.hiw-steps{position:relative;z-index:1;margin:0;padding:0;list-style:none}
+.hiw-card{position:absolute;width:280px}
+.hiw-card:nth-child(1){top:0;left:15%}
+.hiw-card:nth-child(2){top:120px;right:15%}
+.hiw-card:nth-child(3){top:420px;left:15%}
+.hiw-paper{padding:8px;border:1px solid #f1eef4;border-radius:25px;background:#fff;box-shadow:0 10px 20px #d3d3d3}
+.hiw-pin{display:block;width:32px;height:32px;margin:0 auto 24px;fill:currentColor}
+.hiw-note{padding:15px;border:1px solid;border-radius:15px}
+.hiw-num{display:block;margin-bottom:20px;font-family:"Comic Sans MS","Chalkboard SE",sans-serif;font-size:36px;line-height:1}
+.hiw-note h3{margin:0 0 10px;color:#262626;font-size:24px;font-weight:600;line-height:1.35}
+.hiw-note p{margin:0;color:#737373;font-size:14px;line-height:1.6}
+.hiw-orange{color:#f97316}.hiw-orange .hiw-note{background:#fff7ed;border-color:#ffedd5}
+.hiw-blue{color:#2563eb}.hiw-blue .hiw-note{background:#eff6ff;border-color:#dbeafe}
+.hiw-purple{color:#9333ea}.hiw-purple .hiw-note{background:#faf5ff;border-color:#f3e8ff}
+html[data-theme=dark] .hiw-paper{background:#171717;border-color:#262626;box-shadow:none}
+html[data-theme=dark] .hiw-note h3{color:#f5f5f5}html[data-theme=dark] .hiw-note p{color:#a3a3a3}
+html[data-theme=dark] .hiw-orange .hiw-note{background:#f973161a;border-color:#f9731633}html[data-theme=dark] .hiw-blue .hiw-note{background:#3b82f61a;border-color:#3b82f633}html[data-theme=dark] .hiw-purple .hiw-note{background:#a855f71a;border-color:#a855f733}
+@media(max-width:760px){.hiw-board{height:auto;padding:8px 0 16px}.hiw-path{display:none}.hiw-steps{display:flex;flex-direction:column;gap:32px}.hiw-card{position:static;width:100%}}
+@media(prefers-reduced-motion:reduce){.hiw-path path{animation:none}}
