@@ -638,3 +638,34 @@ html[data-theme=dark] .sp-row p{color:#a39cad}
   .sp-photo{border-radius:10px}
 }
 @media(prefers-reduced-motion:reduce){.sp-photo img{transition:none}}
+/* Header (layout modelled on spacex.com): clear frosted-glass bar with the gradient wordmark at the left edge, menu links centred, theme switch at the right edge; it slides up out of view while scrolling down and returns on scrolling up. On phones the links stay in the ☰ menu. */
+body .site-header{top:0;left:0;right:0;width:100%;height:72px;padding:0 24px 0 32px;gap:8px;transform:none;border:0;border-bottom:1px solid #ffffff99;border-radius:0;background:#ffffff59;box-shadow:0 4px 24px #2d213e0f;-webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px);transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .35s ease}
+body.header-hidden .site-header{transform:translateY(calc(-100% - 2px));box-shadow:none}
+html[data-theme=dark] body .site-header{background:#14101966;border-bottom-color:#ffffff1a;box-shadow:0 4px 24px #0000004d}
+html{scroll-padding-top:88px}
+.view-navigation body:not(.at-intro) main{padding-top:72px}
+body .site-header .brand{font-size:24px}
+body .site-header .theme-toggle{width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--ink)}
+body .site-header .theme-toggle:hover{background:#2d213e0f}
+html[data-theme=dark] body .site-header .theme-toggle{background:transparent}
+body .site-header .menu-toggle,html[data-theme=dark] body .site-header .menu-toggle{width:44px;height:44px;border-radius:50%;background:transparent;color:var(--ink)}
+body .site-header .menu-toggle:hover{background:#2d213e0f;color:var(--ink)}
+@media(min-width:761px){
+  body .site-header .main-nav,body .site-header .main-nav.open{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:row;align-items:center;width:auto;margin:0;white-space:nowrap;padding:0;gap:clamp(8px,2.4vw,36px);border:0;border-radius:0;background:none;box-shadow:none}
+  body .site-header .main-nav a,body .site-header .main-nav.open a{padding:8px 0;border-radius:0;background:none;color:var(--ink);font-size:14px;font-weight:600;letter-spacing:1.5px;text-shadow:none;transition:color .2s ease}
+  body .site-header .main-nav a:hover,body .site-header .main-nav.open a:hover{background:none;color:var(--purple);text-decoration:underline;text-underline-offset:8px;text-decoration-thickness:1px}
+  html[data-theme=dark] body .site-header .main-nav,html[data-theme=dark] body .site-header .main-nav.open{background:none}
+  body .site-header .theme-switch{margin-left:auto}
+  body .site-header .menu-toggle{display:none}
+}
+@media(max-width:760px){
+  body .site-header{top:0;left:0;width:100%;height:64px;padding:0 10px 0 20px;border-radius:0}
+  html{scroll-padding-top:80px}
+  .view-navigation body:not(.at-intro) main{padding-top:64px}
+  body .site-header .brand{font-size:21px}
+  /* The phone menu is a fixed full-screen sheet inside the header; a backdrop blur would trap it inside the bar, so the blur is dropped while it is open. */
+  body.menu-open .site-header{-webkit-backdrop-filter:none;backdrop-filter:none}
+  /* The open phone menu's close button gets a filled circle so it stands out on the sheet. */
+  body .site-header .menu-toggle[aria-expanded=true],html[data-theme=dark] body .site-header .menu-toggle[aria-expanded=true]{background:#49305f;color:#fff}
+}
+@media(prefers-reduced-motion:reduce){body .site-header{transition:none}}
