@@ -665,3 +665,101 @@ document.querySelectorAll('[data-open-poster]').forEach(button => button.addEven
   new ResizeObserver(fit).observe(board);
   phone.addEventListener('change', fit);
 })();
+
+// Welcome arc: cards sit on a wheel. After a short fan-out, dragging, swiping or a sideways trackpad scroll moves the focus one card at a time,
+// and a chained spring lets the turn ripple from the last card back to the first, like a plucked string.
+(() => {
+  const arc = document.querySelector('.hero-arc');
+  if (!arc) return;
+  const cards = [...arc.querySelectorAll('.arc-card')];
+  const GAP = 16, STIFF = 0.2, DAMP = 0.4;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let active = Math.floor(cards.length / 2);
+  const state = cards.map(() => ({ angle: 0, velocity: 0 }));
+  let intro = !still, fanning = false, frame = 0;
+  const target = i => (i - active) * GAP;
+  const paint = () => state.forEach((c, i) => {
+    cards[i].style.transform = `rotate(${c.angle}deg) translateY(calc(var(--R) * -1))`;
+  });
+  const stack = () => cards.forEach((el, i) => { el.style.zIndex = String(cards.length - Math.abs(i - active)); });
+  const step = () => {
+    let moving = false;
+    if (intro) {
+      if (fanning) {
+        state.forEach((c, i) => {
+          c.velocity = (c.velocity + (target(i) - c.angle) * 0.03) * 0.75;
+          c.angle += c.velocity;
+          if (Math.abs(target(i) - c.angle) > 0.5 || Math.abs(c.velocity) > 0.5) moving = true;
+        });
+        if (!moving) intro = false;
+      }
+      moving = true;
+    } else {
+      const last = state.length - 1;
+      for (let i = last; i >= 0; i--) {
+        const c = state[i];
+        const goal = i === last ? target(last) : state[i + 1].angle - GAP;
+        c.velocity = (c.velocity + (goal - c.angle) * STIFF) * DAMP;
+        c.angle += c.velocity;
+        if (Math.abs(goal - c.angle) > 0.02 || Math.abs(c.velocity) > 0.02) moving = true;
+      }
+    }
+    paint();
+    frame = moving ? requestAnimationFrame(step) : 0;
+  };
+  const kick = () => { if (!frame) frame = requestAnimationFrame(step); };
+  const go = next => {
+    next = Math.max(0, Math.min(cards.length - 1, next));
+    if (intro || next === active) return;
+    active = next;
+    stack();
+    kick();
+  };
+  stack();
+  if (still) state.forEach((c, i) => { c.angle = target(i); });
+  paint();
+  if (!still) {
+    setTimeout(() => { fanning = true; }, 700);
+    // On slow devices the fan-out may still be wobbling; hand over to the normal spring so dragging works anyway.
+    setTimeout(() => { intro = false; kick(); }, 2200);
+    kick();
+  }
+
+  // Drag or swipe sideways: every 60px turns the wheel by one card; a tap brings that card to the front.
+  let startX = null, dragged = false;
+  arc.addEventListener('pointerdown', event => {
+    startX = event.clientX;
+    dragged = false;
+  });
+  arc.addEventListener('pointermove', event => {
+    if (startX === null) return;
+    const dx = event.clientX - startX;
+    if (Math.abs(dx) < 60) return;
+    if (!dragged) {
+      dragged = true;
+      arc.classList.add('is-dragging');
+      arc.setPointerCapture?.(event.pointerId);
+    }
+    go(active + (dx > 0 ? -1 : 1));
+    startX = event.clientX;
+  });
+  const release = event => {
+    if (startX !== null && !dragged && event.type === 'pointerup') {
+      const card = document.elementsFromPoint(event.clientX, event.clientY).find(el => el.classList?.contains('arc-card'));
+      if (card) go(cards.indexOf(card));
+    }
+    startX = null;
+    arc.classList.remove('is-dragging');
+  };
+  arc.addEventListener('pointerup', release);
+  arc.addEventListener('pointercancel', release);
+
+  // A sideways trackpad scroll turns it too (vertical scrolling still leaves the welcome screen).
+  let wheelLock = false;
+  arc.addEventListener('wheel', event => {
+    if (wheelLock || Math.abs(event.deltaX) < 15 || Math.abs(event.deltaX) < Math.abs(event.deltaY)) return;
+    go(active + (event.deltaX > 0 ? 1 : -1));
+    wheelLock = true;
+    setTimeout(() => { wheelLock = false; }, 400);
+  }, { passive: true });
+})();
