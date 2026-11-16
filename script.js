@@ -578,57 +578,6 @@ document.querySelectorAll('[data-open-poster]').forEach(button => button.addEven
     .catch(() => {});
 })();
 
-// About gallery: drifts right on its own and loops; drag (mouse) or swipe (touch) to move it by hand.
-// Hovering pauses it, and after a manual move it waits a moment before drifting again.
-(() => {
-  const gallery = document.querySelector('.about-gallery');
-  const track = gallery?.querySelector('.gallery-track');
-  if (!track) return;
-  const cards = track.children;
-  const half = cards.length / 2;
-  const period = () => cards[half].offsetLeft - cards[0].offsetLeft;
-  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let pos = 0, hovered = false, drag = null, resumeAt = 0, last = 0;
-  const wrap = () => {
-    const p = period();
-    if (p <= 0) return;
-    if (pos >= p) pos -= p;
-    if (pos < 0) pos += p;
-    gallery.scrollLeft = pos;
-  };
-  const holdOff = () => { resumeAt = performance.now() + 2500; };
-  const tick = now => {
-    const dt = last ? Math.min(now - last, 64) : 0;
-    last = now;
-    if (!still && !hovered && !drag && now > resumeAt && gallery.offsetParent) {
-      pos -= dt * 0.04;
-      wrap();
-    }
-    requestAnimationFrame(tick);
-  };
-  gallery.addEventListener('scroll', () => { if (Math.abs(gallery.scrollLeft - pos) > 1) { pos = gallery.scrollLeft; wrap(); } }, { passive: true });
-  gallery.addEventListener('mouseenter', () => { hovered = true; });
-  gallery.addEventListener('mouseleave', () => { hovered = false; });
-  gallery.addEventListener('touchstart', holdOff, { passive: true });
-  gallery.addEventListener('touchend', holdOff, { passive: true });
-  gallery.addEventListener('wheel', holdOff, { passive: true });
-  gallery.addEventListener('pointerdown', event => {
-    if (event.pointerType !== 'mouse' || event.button !== 0) return;
-    drag = { x: event.clientX, start: pos };
-    gallery.classList.add('is-dragging');
-    gallery.setPointerCapture(event.pointerId);
-  });
-  gallery.addEventListener('pointermove', event => {
-    if (!drag) return;
-    pos = drag.start - (event.clientX - drag.x);
-    wrap();
-  });
-  const endDrag = () => { if (!drag) return; drag = null; gallery.classList.remove('is-dragging'); holdOff(); };
-  gallery.addEventListener('pointerup', endDrag);
-  gallery.addEventListener('pointercancel', endDrag);
-  requestAnimationFrame(tick);
-})();
-
 // Service steps: on phones the cards zigzag in normal flow, so the dashed path is redrawn through their centres whenever the board resizes.
 (() => {
   const board = document.querySelector('.hiw-board');
@@ -762,4 +711,53 @@ document.querySelectorAll('[data-open-poster]').forEach(button => button.addEven
     wheelLock = true;
     setTimeout(() => { wheelLock = false; }, 400);
   }, { passive: true });
+})();
+
+// Service photos: a sideways row of cards. Arrows step one card at a time, a mouse can drag the row, and touch uses native swiping.
+(() => {
+  const row = document.querySelector('.sp-row');
+  if (!row) return;
+  const prev = document.querySelector('.sp-prev');
+  const next = document.querySelector('.sp-next');
+  const step = () => row.querySelector('li')?.getBoundingClientRect().width || row.clientWidth / 4;
+  const update = () => {
+    if (!prev || !next) return;
+    prev.disabled = row.scrollLeft <= 2;
+    next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 2;
+  };
+  prev?.addEventListener('click', () => row.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next?.addEventListener('click', () => row.scrollBy({ left: step(), behavior: 'smooth' }));
+  row.addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  update();
+
+  let startX = null, startLeft = 0;
+  row.addEventListener('pointerdown', event => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    startX = event.clientX;
+    startLeft = row.scrollLeft;
+  });
+  row.addEventListener('pointermove', event => {
+    if (startX === null) return;
+    const dx = event.clientX - startX;
+    if (!row.classList.contains('is-dragging')) {
+      if (Math.abs(dx) < 5) return;
+      row.classList.add('is-dragging');
+      row.setPointerCapture(event.pointerId);
+    }
+    row.scrollLeft = startLeft - dx;
+  });
+  const end = () => {
+    if (startX === null) return;
+    startX = null;
+    if (!row.classList.contains('is-dragging')) return;
+    // Settle on the nearest card once the drag ends.
+    const card = step();
+    const target = Math.round(row.scrollLeft / card) * card;
+    row.classList.remove('is-dragging');
+    row.scrollLeft = row.scrollLeft;
+    row.scrollTo({ left: target, behavior: 'smooth' });
+  };
+  row.addEventListener('pointerup', end);
+  row.addEventListener('pointercancel', end);
 })();
