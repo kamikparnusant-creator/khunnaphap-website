@@ -761,3 +761,18 @@ document.querySelectorAll('[data-open-poster]').forEach(button => button.addEven
   row.addEventListener('pointerup', end);
   row.addEventListener('pointercancel', end);
 })();
+
+// Header: once the page has scrolled down to the services section, it slides up out of view while scrolling down, and comes back as soon as it scrolls up (it never hides above that point or while the menu is open).
+(() => {
+  let lastY = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    const body = document.body;
+    if (Math.abs(y - lastY) < 6) return;
+    const services = document.getElementById('services');
+    const start = services ? services.getBoundingClientRect().top + y - 80 : 80;
+    const hide = y > lastY && y >= start && !body.classList.contains('menu-open');
+    body.classList.toggle('header-hidden', hide);
+    lastY = y;
+  }, { passive: true });
+})();
