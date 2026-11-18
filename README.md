@@ -1,6 +1,6 @@
 # เว็บไซต์ ตรอ.คุณภาพ
 
-เว็บไซต์ประชาสัมพันธ์บริการตรวจสภาพรถ รองรับการแสดงผลบนมือถือ และตั้งค่าให้ใช้โดเมน `www.khunnaphap.co` ผ่าน GitHub Pages
+เว็บไซต์ประชาสัมพันธ์บริการตรวจสภาพรถ รองรับการแสดงผลบนมือถือ และตั้งค่าให้ใช้โดเมน `trokp.com` ผ่าน GitHub Pages
 
 ## นำเว็บไซต์ขึ้น GitHub Pages
 
@@ -8,7 +8,7 @@
 2. อัปโหลดไฟล์ทั้งหมดในโฟลเดอร์นี้ไปยัง branch `main`
 3. ใน repository ไปที่ **Settings → Pages**
 4. เลือก **Deploy from a branch**, เลือก branch `main` และโฟลเดอร์ `/(root)` แล้วกด Save
-5. เมื่อ GitHub Pages พร้อมใช้งาน ให้ใส่ Custom domain เป็น `www.khunnaphap.co`
+5. เมื่อ GitHub Pages พร้อมใช้งาน ให้ใส่ Custom domain เป็น `trokp.com`
 
 ## ตั้งค่า DNS
 
