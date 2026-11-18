@@ -629,3 +629,10 @@ body .site-header .menu-toggle:hover{background:#2d213e0f;color:var(--ink)}
   body .site-header .menu-toggle[aria-expanded=true],html[data-theme=dark] body .site-header .menu-toggle[aria-expanded=true]{background:#49305f;color:#fff}
 }
 @media(prefers-reduced-motion:reduce){body .site-header{transition:none}}
+/* Rules moved from guide.css. They used to load after this file, so they stay last. */
+.inspection-guide{border-top:1px solid var(--line)}
+.eligibility{row-gap:24px}.eligibility>.guide-alert{grid-column:1 / -1;margin:0}.eligibility>.guide-alert>p{margin:0;color:#655221}
+.guide-alert{background:#fff7d9;border:1px solid #ecdfa3;border-radius:20px;display:flex;align-items:center;gap:16px;padding:24px;margin-bottom:40px;color:#655221}
+.guide-alert>span{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:50%;background:var(--yellow);font-size:23px;font-weight:700}
+.guide-alert p{margin:0;font-size:16px}.guide-alert strong{display:block;color:#514019;font-size:18px}
+@media(max-width:760px){.guide-alert{align-items:flex-start;padding:20px 16px;gap:12px;margin-bottom:28px}.guide-alert>span{width:32px;height:32px;font-size:20px}.guide-alert strong{font-size:17px}}
